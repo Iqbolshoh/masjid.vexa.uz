@@ -9,16 +9,13 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-        .font-quran {
-            font-family: 'Amiri', serif;
         }
     </style>
     @stack('styles')
@@ -40,8 +37,9 @@
                     <span id="currentTimeDisplay">--:--:--</span>
                     <span class="text-[10px] text-amber-300/80 uppercase font-semibold">O'sh (UTC+6)</span>
                 </div>
-                <div class="hidden sm:flex items-center gap-1 text-emerald-200 text-xs font-quran text-sm">
-                    <span>13 Jumada al-awwal 1448 H</span>
+                <div class="hidden sm:flex items-center gap-1.5 text-emerald-200 text-xs font-semibold">
+                    <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span>5 vaqt jamoat namozi vaqtlari</span>
                 </div>
             </div>
         </div>
@@ -152,16 +150,16 @@
                     </p>
                 </div>
 
-                <!-- Col 2: Quran verse -->
+                <!-- Col 2: Jamoat namozi vaqtlari -->
                 <div class="bg-slate-850/60 rounded-2xl p-6 border border-slate-800">
-                    <span class="text-amber-400 text-xs font-semibold uppercase tracking-wider block mb-2">Qur'oni Karim</span>
-                    <p class="text-lg font-quran text-emerald-200 leading-loose text-right mb-2" dir="rtl">
-                        إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَّوْقُوتًا
+                    <span class="text-amber-400 text-xs font-bold uppercase tracking-wider block mb-2">Jamoat Namozi Vaqtlari</span>
+                    <p class="text-sm text-slate-300 leading-relaxed mb-3">
+                        Har bir masjidda 5 vaqt namozning jamoat (iqomat) vaqti va Juma namozi vaqtlari masjid mas'uli tomonidan o'z vaqtida yangilab boriladi.
                     </p>
-                    <p class="text-xs text-slate-400 italic">
-                        "Albatta, namoz mo'minlarga vaqtida tayinlangan farzdir."
-                        <span class="block text-slate-500 font-normal mt-1">(Niso surasi, 103-oyat)</span>
-                    </p>
+                    <div class="flex items-center gap-2 text-xs text-emerald-300 font-medium">
+                        <svg class="w-4 h-4 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span>Azon va Jamoat vaqtlari alohida ko'rsatiladi</span>
+                    </div>
                 </div>
 
                 <!-- Col 3: Contacts & Regions -->

@@ -12,7 +12,7 @@
         <div class="text-center max-w-3xl mx-auto mb-8">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-400/20 text-amber-300 border border-amber-400/30 mb-4 backdrop-blur-xs">
                 <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C11.5 2 11 2.4 11 3C11 3.2 11.1 3.4 11.2 3.6C10.5 4.3 10 5.4 10 6.6C10 7.8 10.6 8.9 11.5 9.6C9.5 10.5 8 12.6 8 15V21H16V15C16 12.6 14.5 10.5 12.5 9.6C13.4 8.9 14 7.8 14 6.6C14 5.4 13.5 4.3 12.8 3.6C12.9 3.4 13 3.2 13 3C13 2.4 12.5 2 12 2Z"/></svg>
-                Qirg'iziston Musulmonlari Diniy Boshqarmasi • O'sh viloyati
+                O'sh viloyati va shahar masjidlari portali
             </span>
             <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-3">
                 O'sh Viloyati <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400">Masjidlari va Namoz Vaqtlari</span>
