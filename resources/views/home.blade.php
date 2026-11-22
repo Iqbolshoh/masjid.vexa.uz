@@ -274,21 +274,24 @@
                             </div>
                         </div>
 
-                        <!-- Amenities -->
+                        <!-- Amenities with SVG icons -->
                         <div class="flex items-center gap-3 text-[11px] text-slate-500 mb-4">
                             @if($mosque->has_ablution)
-                                <span class="flex items-center gap-1 text-teal-700" title="Tahoratxona mavjud">
-                                    💧 Tahoratxona
+                                <span class="flex items-center gap-1.5 text-teal-700 bg-teal-50/80 px-2 py-0.5 rounded-md border border-teal-100" title="Tahoratxona mavjud">
+                                    <svg class="w-3.5 h-3.5 text-teal-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+                                    <span>Tahoratxona</span>
                                 </span>
                             @endif
                             @if($mosque->has_women_area)
-                                <span class="flex items-center gap-1 text-purple-700" title="Ayollar namozxonasi mavjud">
-                                    🧕 Ayollar xonasi
+                                <span class="flex items-center gap-1.5 text-purple-700 bg-purple-50/80 px-2 py-0.5 rounded-md border border-purple-100" title="Ayollar namozxonasi mavjud">
+                                    <svg class="w-3.5 h-3.5 text-purple-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                                    <span>Ayollar xonasi</span>
                                 </span>
                             @endif
                             @if($mosque->has_parking)
-                                <span class="flex items-center gap-1 text-blue-700" title="Avtoturargoh mavjud">
-                                    🚗 Parking
+                                <span class="flex items-center gap-1.5 text-blue-700 bg-blue-50/80 px-2 py-0.5 rounded-md border border-blue-100" title="Avtoturargoh mavjud">
+                                    <svg class="w-3.5 h-3.5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7h4a3 3 0 010 6H9"/></svg>
+                                    <span>Parking</span>
                                 </span>
                             @endif
                         </div>

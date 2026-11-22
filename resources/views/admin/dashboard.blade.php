@@ -279,19 +279,28 @@
                     <label class="flex items-center gap-2 cursor-pointer font-medium text-slate-800">
                         <input type="checkbox" name="has_ablution" value="1" {{ $mosque->has_ablution ? 'checked' : '' }}
                                class="rounded-sm border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4">
-                        <span>💧 Tahoratxona</span>
+                        <span class="flex items-center gap-1.5 text-teal-800">
+                            <svg class="w-4 h-4 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+                            Tahoratxona
+                        </span>
                     </label>
 
                     <label class="flex items-center gap-2 cursor-pointer font-medium text-slate-800">
                         <input type="checkbox" name="has_women_area" value="1" {{ $mosque->has_women_area ? 'checked' : '' }}
                                class="rounded-sm border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4">
-                        <span>🧕 Ayollar namozxonasi</span>
+                        <span class="flex items-center gap-1.5 text-purple-800">
+                            <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                            Ayollar namozxonasi
+                        </span>
                     </label>
 
                     <label class="flex items-center gap-2 cursor-pointer font-medium text-slate-800">
                         <input type="checkbox" name="has_parking" value="1" {{ $mosque->has_parking ? 'checked' : '' }}
                                class="rounded-sm border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4">
-                        <span>🚗 Avtoturargoh</span>
+                        <span class="flex items-center gap-1.5 text-blue-800">
+                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7h4a3 3 0 010 6H9"/></svg>
+                            Avtoturargoh
+                        </span>
                     </label>
                 </div>
             </div>

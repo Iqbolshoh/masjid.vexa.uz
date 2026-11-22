@@ -211,21 +211,21 @@
                 <div class="space-y-3">
                     <div class="flex items-center gap-3 text-sm {{ $mosque->has_ablution ? 'text-teal-900 font-semibold' : 'text-slate-400' }}">
                         <span class="w-8 h-8 rounded-xl {{ $mosque->has_ablution ? 'bg-teal-50 text-teal-700' : 'bg-slate-100 text-slate-400' }} flex items-center justify-center">
-                            💧
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
                         </span>
                         <span>Tahoratxona (issiq/sovuq suv)</span>
                     </div>
 
                     <div class="flex items-center gap-3 text-sm {{ $mosque->has_women_area ? 'text-purple-900 font-semibold' : 'text-slate-400' }}">
                         <span class="w-8 h-8 rounded-xl {{ $mosque->has_women_area ? 'bg-purple-50 text-purple-700' : 'bg-slate-100 text-slate-400' }} flex items-center justify-center">
-                            🧕
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
                         </span>
                         <span>Ayollar namozxonasi</span>
                     </div>
 
                     <div class="flex items-center gap-3 text-sm {{ $mosque->has_parking ? 'text-blue-900 font-semibold' : 'text-slate-400' }}">
                         <span class="w-8 h-8 rounded-xl {{ $mosque->has_parking ? 'bg-blue-50 text-blue-700' : 'bg-slate-100 text-slate-400' }} flex items-center justify-center">
-                            🚗
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7h4a3 3 0 010 6H9"/></svg>
                         </span>
                         <span>Avtoturargoh (Parking)</span>
                     </div>
