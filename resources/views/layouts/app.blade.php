@@ -94,11 +94,6 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                         </button>
                     </form>
-                @else
-                    <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 shadow-xs transition-all">
-                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
-                        Masjid Admini
-                    </a>
                 @endauth
             </div>
         </div>
@@ -134,11 +129,11 @@
     <!-- Footer -->
     <footer class="bg-slate-900 text-slate-300 pt-14 pb-10 border-t border-slate-800 mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-slate-800">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-slate-800">
                 <!-- Col 1: About -->
                 <div>
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-amber-300">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-800 flex items-center justify-center text-amber-300 shadow-md">
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 2C11.5 2 11 2.4 11 3C11 3.2 11.1 3.4 11.2 3.6C10.5 4.3 10 5.4 10 6.6C10 7.8 10.6 8.9 11.5 9.6C9.5 10.5 8 12.6 8 15V21H16V15C16 12.6 14.5 10.5 12.5 9.6C13.4 8.9 14 7.8 14 6.6C14 5.4 13.5 4.3 12.8 3.6C12.9 3.4 13 3.2 13 3C13 2.4 12.5 2 12 2Z"/>
                             </svg>
@@ -146,38 +141,63 @@
                         <span class="text-xl font-bold text-white tracking-tight">O'sh Namoz Portali</span>
                     </div>
                     <p class="text-sm text-slate-400 leading-relaxed">
-                        Qirg'izistonning O'sh viloyati va O'sh shahri masjidlari uchun yagona jamoat namozi vaqtlari va interaktiv xarita tizimi. Har bir masjid mas'uli namoz vaqtlarini mustaqil boshqaradi.
+                        Qirg'izistonning O'sh viloyati va O'sh shahri masjidlari uchun jamoat namozi vaqtlari va interaktiv xarita tizimi.
                     </p>
                 </div>
 
                 <!-- Col 2: Jamoat namozi vaqtlari -->
-                <div class="bg-slate-850/60 rounded-2xl p-6 border border-slate-800">
+                <div class="bg-slate-850/60 rounded-2xl p-5 border border-slate-800">
                     <span class="text-amber-400 text-xs font-bold uppercase tracking-wider block mb-2">Jamoat Namozi Vaqtlari</span>
-                    <p class="text-sm text-slate-300 leading-relaxed mb-3">
+                    <p class="text-xs text-slate-300 leading-relaxed mb-3">
                         Har bir masjidda 5 vaqt namozning jamoat (iqomat) vaqti va Juma namozi vaqtlari masjid mas'uli tomonidan o'z vaqtida yangilab boriladi.
                     </p>
                     <div class="flex items-center gap-2 text-xs text-emerald-300 font-medium">
                         <svg class="w-4 h-4 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        <span>Azon va Jamoat vaqtlari alohida ko'rsatiladi</span>
+                        <span>Azon va Jamoat vaqtlari</span>
                     </div>
                 </div>
 
                 <!-- Col 3: Contacts & Regions -->
                 <div>
-                    <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-200 mb-3">Qamrab olingan hududlar</h3>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">Qamrab olingan hududlar</h3>
                     <div class="flex flex-wrap gap-1.5 text-xs text-slate-400">
-                        <span class="bg-slate-800 px-2.5 py-1 rounded-lg">O'sh shahri</span>
-                        <span class="bg-slate-800 px-2.5 py-1 rounded-lg">Qorasuv</span>
-                        <span class="bg-slate-800 px-2.5 py-1 rounded-lg">Novqat</span>
-                        <span class="bg-slate-800 px-2.5 py-1 rounded-lg">O'zgan</span>
-                        <span class="bg-slate-800 px-2.5 py-1 rounded-lg">Aravon</span>
-                        <span class="bg-slate-800 px-2.5 py-1 rounded-lg">Oloy</span>
-                        <span class="bg-slate-800 px-2.5 py-1 rounded-lg">Qoraqulja</span>
-                        <span class="bg-slate-800 px-2.5 py-1 rounded-lg">Chon-Oloy</span>
+                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">O'sh shahri</span>
+                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">Qorasuv</span>
+                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">Novqat</span>
+                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">O'zgan</span>
+                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">Aravon</span>
+                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">Oloy</span>
+                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">Qoraqulja</span>
+                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">Chon-Oloy</span>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800 text-xs text-slate-500">
-                        Platforma: <span class="text-emerald-400 font-semibold">O'sh Namoz Portali</span>
+                </div>
+
+                <!-- Col 4: Unified Boshqaruv Tizimi (Single Login for Superadmin & Mosque Admin) -->
+                <div class="bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-900 rounded-2xl p-5 border border-emerald-700/40 shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                            <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">Boshqaruv Tizimi</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                            Masjid mas'ullari va Bosh administrator uchun yagona kirish portali.
+                        </p>
                     </div>
+
+                    @auth
+                        <div class="space-y-2">
+                            <a href="{{ auth()->user()->isSuperAdmin() ? route('superadmin.dashboard') : route('admin.dashboard') }}"
+                               class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold text-slate-900 bg-amber-400 hover:bg-amber-300 shadow-sm transition-all">
+                                <span>Kabinetingizga o'tish</span>
+                            </a>
+                        </div>
+                    @else
+                        <a href="{{ route('login') }}" 
+                           class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold text-slate-900 bg-amber-400 hover:bg-amber-300 shadow-sm active:scale-95 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+                            <span>Admin Kirish</span>
+                        </a>
+                    @endauth
                 </div>
             </div>
 
@@ -185,8 +205,11 @@
                 <p>&copy; {{ date('Y') }} O'sh Namoz Portali. Barcha huquqlar himoyalangan.</p>
                 <div class="flex items-center gap-6">
                     <a href="{{ route('home') }}" class="hover:text-emerald-400 transition-colors">Bosh sahifa</a>
-                    <a href="{{ route('login') }}" class="hover:text-emerald-400 transition-colors">Masjid Admini</a>
                     <a href="{{ route('home') }}#map" class="hover:text-emerald-400 transition-colors">Xarita</a>
+                    <a href="{{ route('login') }}" class="text-amber-400/90 hover:text-amber-300 font-semibold transition-colors flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                        <span>Boshqaruv Tizimi</span>
+                    </a>
                 </div>
             </div>
         </div>

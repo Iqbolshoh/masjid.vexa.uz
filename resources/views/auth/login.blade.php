@@ -1,21 +1,30 @@
 @extends('layouts.app')
 
-@section('title', "Tizimga Kirish — Masjid Admini")
+@section('title', "Boshqaruv Tizimiga Kirish")
 
 @section('content')
 <div class="max-w-md mx-auto px-4 py-12 sm:py-16">
-    <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-sm border border-slate-200/80">
+    <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-lg border-t-4 border-t-emerald-700 border-x border-b border-slate-200/80 relative overflow-hidden">
+        
+        <!-- Subtle gold line -->
+        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+
         <div class="text-center mb-8">
-            <div class="w-14 h-14 rounded-2xl bg-emerald-700 text-amber-300 mx-auto flex items-center justify-center shadow-md shadow-emerald-800/20 mb-4">
-                <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-700 to-emerald-900 text-amber-300 mx-auto flex items-center justify-center shadow-lg shadow-emerald-900/20 mb-4 border border-emerald-600/30">
+                <svg class="w-9 h-9" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2C11.5 2 11 2.4 11 3C11 3.2 11.1 3.4 11.2 3.6C10.5 4.3 10 5.4 10 6.6C10 7.8 10.6 8.9 11.5 9.6C9.5 10.5 8 12.6 8 15V21H16V15C16 12.6 14.5 10.5 12.5 9.6C13.4 8.9 14 7.8 14 6.6C14 5.4 13.5 4.3 12.8 3.6C12.9 3.4 13 3.2 13 3C13 2.4 12.5 2 12 2Z"/>
                 </svg>
             </div>
+            
+            <span class="inline-block px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 mb-2">
+                Yagona Kirish Portali
+            </span>
+
             <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">
-                Masjid Admini Kirish
+                Boshqaruv Tizimi
             </h1>
             <p class="text-xs text-slate-500 mt-1">
-                Namoz vaqtlari va ma'lumotlarni boshqarish uchun shaxsiy kabinet
+                Masjid mas'ullari va Bosh administrator uchun yagona kirish
             </p>
         </div>
 
@@ -66,7 +75,7 @@
             </div>
 
             <div class="pt-2">
-                <button type="submit" class="w-full py-3.5 px-6 rounded-2xl text-sm font-bold text-white bg-emerald-700 hover:bg-emerald-800 shadow-md shadow-emerald-800/20 active:scale-95 transition-all">
+                <button type="submit" class="w-full py-3.5 px-6 rounded-2xl text-sm font-bold text-slate-900 bg-amber-400 hover:bg-amber-300 shadow-md shadow-amber-400/20 active:scale-95 transition-all">
                     Tizimga Kirish
                 </button>
             </div>
@@ -79,20 +88,29 @@
             </span>
             <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200 text-xs space-y-2 text-slate-600">
                 <div class="flex justify-between items-center pb-1.5 border-b border-slate-200/60">
-                    <span class="font-bold text-slate-800">Sulaymon-Too masjidi:</span>
-                    <button type="button" onclick="fillForm('sulaymon@osh-masjid.kg', 'masjid123')" class="text-emerald-700 hover:underline font-semibold">
+                    <div>
+                        <span class="font-bold text-slate-800 block">Sulaymon-Too masjidi</span>
+                        <span class="text-[10px] text-slate-400">Masjid admin roli</span>
+                    </div>
+                    <button type="button" onclick="fillForm('sulaymon@osh-masjid.kg', 'masjid123')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition-colors">
                         To'ldirish
                     </button>
                 </div>
                 <div class="flex justify-between items-center pb-1.5 border-b border-slate-200/60">
-                    <span class="font-bold text-slate-800">Imom Buxoriy masjidi:</span>
-                    <button type="button" onclick="fillForm('buxoriy@osh-masjid.kg', 'masjid123')" class="text-emerald-700 hover:underline font-semibold">
+                    <div>
+                        <span class="font-bold text-slate-800 block">Imom Buxoriy masjidi</span>
+                        <span class="text-[10px] text-slate-400">Masjid admin roli</span>
+                    </div>
+                    <button type="button" onclick="fillForm('buxoriy@osh-masjid.kg', 'masjid123')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition-colors">
                         To'ldirish
                     </button>
                 </div>
                 <div class="flex justify-between items-center">
-                    <span class="font-bold text-slate-800">Superadmin:</span>
-                    <button type="button" onclick="fillForm('admin@osh-masjid.kg', 'admin12345')" class="text-emerald-700 hover:underline font-semibold">
+                    <div>
+                        <span class="font-bold text-slate-800 block">Superadmin</span>
+                        <span class="text-[10px] text-amber-700 font-semibold">Bosh administrator roli</span>
+                    </div>
+                    <button type="button" onclick="fillForm('admin@osh-masjid.kg', 'admin12345')" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-100 text-amber-900 hover:bg-amber-200 transition-colors">
                         To'ldirish
                     </button>
                 </div>

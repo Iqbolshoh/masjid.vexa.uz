@@ -13,8 +13,10 @@
         <span class="text-slate-900 font-bold truncate">{{ $mosque->name }}</span>
     </nav>
 
-    <!-- Header Card -->
-    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80 mb-8">
+    <!-- Header Card with Islamic Arch Styling -->
+    <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border-t-4 border-t-emerald-700 border-x border-b border-slate-200/80 mb-8 relative overflow-hidden">
+        <!-- Subtle gold line -->
+        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
                 <div class="flex items-center gap-2 mb-2">
@@ -232,15 +234,12 @@
                 </div>
             </div>
 
-            <!-- Admin Notice -->
-            <div class="bg-emerald-950 text-emerald-100 rounded-3xl p-6 shadow-sm">
-                <span class="text-amber-400 text-xs font-bold uppercase tracking-wider block mb-2">Masjid mas'uli e'tiboriga</span>
-                <p class="text-xs text-emerald-200/80 leading-relaxed mb-4">
-                    Ushbu masjidning 5 vaqt namoz (iqomat) vaqtlarini o'zgartirish yoki yangi e'lon kiritish uchun shaxsiy kabinetingizga kiring.
+            <!-- Visitor Notice -->
+            <div class="bg-gradient-to-br from-emerald-950 to-slate-900 text-emerald-100 rounded-3xl p-6 shadow-sm border border-emerald-800/40">
+                <span class="text-amber-400 text-xs font-bold uppercase tracking-wider block mb-2">Namozxonlar diqqatiga</span>
+                <p class="text-xs text-emerald-200/80 leading-relaxed">
+                    Masjid hududida telefonlarni ovozsiz rejimga o'tkazish, tahoratxonani toza saqlash hamda avtomashinalarni belgilangan joyga tartibli qo'yish so'raladi.
                 </p>
-                <a href="{{ route('login') }}" class="inline-flex items-center justify-center w-full py-2.5 px-4 rounded-xl text-xs font-bold text-slate-900 bg-amber-400 hover:bg-amber-300 transition-colors">
-                    Masjid Admini Kirish
-                </a>
             </div>
         </div>
     </div>

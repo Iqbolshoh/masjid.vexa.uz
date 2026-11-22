@@ -6,29 +6,49 @@
 @source '../views/**/*.blade.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Islamic pattern background overlay */
 .bg-islamic-pattern {
-    background-color: #064e3b;
-    background-image: radial-gradient(rgba(217, 119, 6, 0.15) 1px, transparent 1px), radial-gradient(rgba(16, 185, 129, 0.15) 1px, #064e3b 1px);
-    background-size: 40px 40px;
-    background-position: 0 0, 20px 20px;
+    background-color: #04382a;
+    background-image: 
+        radial-gradient(rgba(245, 158, 11, 0.15) 1.5px, transparent 1.5px), 
+        radial-gradient(rgba(16, 185, 129, 0.12) 1.5px, #04382a 1.5px);
+    background-size: 36px 36px;
+    background-position: 0 0, 18px 18px;
 }
 
-.bg-pattern-subtle {
-    background-image: radial-gradient(#d1fae5 1px, transparent 1px);
-    background-size: 24px 24px;
+/* Islamic Geometric Filigree Motif */
+.bg-islamic-girih {
+    background-image: repeating-linear-gradient(45deg, rgba(245, 158, 11, 0.05) 0, rgba(245, 158, 11, 0.05) 1px, transparent 0, transparent 20px),
+                      repeating-linear-gradient(-45deg, rgba(245, 158, 11, 0.05) 0, rgba(245, 158, 11, 0.05) 1px, transparent 0, transparent 20px);
+}
+
+/* Islamic Mehrab Arch Shape */
+.mehrab-arch {
+    border-radius: 50% 50% 0 0 / 25% 25% 0 0;
+}
+
+.mehrab-card-top {
+    position: relative;
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+}
+
+/* Subtle Gold Arch Trim */
+.gold-trim {
+    background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.4), rgba(251, 191, 36, 0.8), rgba(245, 158, 11, 0.4), transparent);
+    height: 1px;
 }
 
 /* Pulse animation for active prayer */
 @keyframes prayer-pulse {
     0%, 100% {
-        box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.6);
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.5);
     }
     50% {
-        box-shadow: 0 0 0 10px rgba(217, 119, 6, 0);
+        box-shadow: 0 0 0 8px rgba(245, 158, 11, 0);
     }
 }
 
@@ -38,25 +58,26 @@
 
 /* Leaflet custom map pin styling */
 .leaflet-popup-content-wrapper {
-    border-radius: 16px;
+    border-radius: 18px;
     padding: 4px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 14px 30px -5px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .custom-mosque-pin {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #059669 0%, #065f46 100%);
+    background: linear-gradient(135deg, #047857 0%, #064e3b 100%);
     color: #fef3c7;
     border: 2px solid #fbbf24;
     border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
     transition: transform 0.2s ease;
 }
 
 .custom-mosque-pin:hover {
-    transform: scale(1.15);
+    transform: scale(1.18);
 }
 
 .user-location-pin {

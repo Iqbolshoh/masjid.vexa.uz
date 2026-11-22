@@ -22,10 +22,19 @@
             </p>
         </div>
 
-        <!-- Central Live Countdown Widget -->
-        <div class="max-w-2xl mx-auto bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-white/15 shadow-2xl mb-10 text-center"
+        <!-- Central Live Countdown Widget with Islamic Mehrab Styling -->
+        <div class="max-w-2xl mx-auto bg-gradient-to-b from-emerald-900/95 via-emerald-950 to-emerald-950 rounded-t-[40px] rounded-b-3xl p-6 sm:p-8 border-t-2 border-x border-b border-amber-400/40 shadow-2xl mb-10 text-center relative overflow-hidden backdrop-blur-md"
              x-data="countdownTimer({{ $nextPrayerInfo['target_timestamp'] }}, '{{ $nextPrayerInfo['name'] }}', '{{ $nextPrayerInfo['time'] }}')"
              x-init="start()">
+            <!-- Decorative arch aura -->
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-20 bg-amber-400/15 rounded-full blur-xl pointer-events-none"></div>
+
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <div class="w-8 h-8 rounded-full bg-emerald-800/80 border border-amber-400/40 flex items-center justify-center text-amber-300 shadow-inner">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C11.5 2 11 2.4 11 3C11 3.2 11.1 3.4 11.2 3.6C10.5 4.3 10 5.4 10 6.6C10 7.8 10.6 8.9 11.5 9.6C9.5 10.5 8 12.6 8 15V21H16V15C16 12.6 14.5 10.5 12.5 9.6C13.4 8.9 14 7.8 14 6.6C14 5.4 13.5 4.3 12.8 3.6C12.9 3.4 13 3.2 13 3C13 2.4 12.5 2 12 2Z"/></svg>
+                </div>
+            </div>
+
             <div class="flex items-center justify-center gap-2 text-amber-300 text-xs sm:text-sm font-semibold tracking-wider uppercase mb-2">
                 <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
                 <span>Keyingi Namoz Vaqti</span>
@@ -33,21 +42,21 @@
             
             <div class="text-2xl sm:text-4xl font-extrabold text-white mb-4">
                 <span x-text="prayerName">{{ $nextPrayerInfo['name'] }}</span>
-                <span class="text-amber-300 ml-2" x-text="prayerTime">{{ $nextPrayerInfo['time'] }}</span>
+                <span class="text-amber-300 ml-2 font-mono" x-text="prayerTime">{{ $nextPrayerInfo['time'] }}</span>
             </div>
 
             <!-- Segmented countdown timer boxes -->
             <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-sm mx-auto mb-4">
-                <div class="bg-emerald-950/70 border border-emerald-500/30 rounded-2xl p-3 sm:p-4 text-center">
-                    <span class="block text-2xl sm:text-4xl font-black text-amber-300 tracking-tight" x-text="hours">00</span>
+                <div class="bg-emerald-950/90 border border-amber-500/30 rounded-2xl p-3 sm:p-4 text-center shadow-inner">
+                    <span class="block text-2xl sm:text-4xl font-black text-amber-300 tracking-tight font-mono" x-text="hours">00</span>
                     <span class="text-[10px] sm:text-xs text-emerald-200 uppercase font-medium">Soat</span>
                 </div>
-                <div class="bg-emerald-950/70 border border-emerald-500/30 rounded-2xl p-3 sm:p-4 text-center">
-                    <span class="block text-2xl sm:text-4xl font-black text-amber-300 tracking-tight" x-text="minutes">00</span>
+                <div class="bg-emerald-950/90 border border-amber-500/30 rounded-2xl p-3 sm:p-4 text-center shadow-inner">
+                    <span class="block text-2xl sm:text-4xl font-black text-amber-300 tracking-tight font-mono" x-text="minutes">00</span>
                     <span class="text-[10px] sm:text-xs text-emerald-200 uppercase font-medium">Daqiqa</span>
                 </div>
-                <div class="bg-emerald-950/70 border border-emerald-500/30 rounded-2xl p-3 sm:p-4 text-center">
-                    <span class="block text-2xl sm:text-4xl font-black text-amber-300 tracking-tight" x-text="seconds">00</span>
+                <div class="bg-emerald-950/90 border border-amber-500/30 rounded-2xl p-3 sm:p-4 text-center shadow-inner">
+                    <span class="block text-2xl sm:text-4xl font-black text-amber-300 tracking-tight font-mono" x-text="seconds">00</span>
                     <span class="text-[10px] sm:text-xs text-emerald-200 uppercase font-medium">Soniya</span>
                 </div>
             </div>
@@ -196,7 +205,7 @@
                 @php
                     $p = $mosque->prayerTimes;
                 @endphp
-                <div class="mosque-card bg-white rounded-3xl p-6 shadow-sm hover:shadow-md border border-slate-200/90 transition-all flex flex-col justify-between group"
+                <div class="mosque-card bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl border-t-4 border-t-emerald-700 border-x border-b border-slate-200/90 transition-all flex flex-col justify-between group hover:-translate-y-1 relative"
                      data-id="{{ $mosque->id }}"
                      data-lat="{{ $mosque->latitude }}"
                      data-lng="{{ $mosque->longitude }}">
