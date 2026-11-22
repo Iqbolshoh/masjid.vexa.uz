@@ -56,6 +56,18 @@ class HomeController extends Controller
 
         $mosques = $query->orderBy('district_id')->orderBy('id')->get();
 
+        $mosquesData = $mosques->map(function ($m) use ($now) {
+            return [
+                'id' => $m->id,
+                'name' => $m->name,
+                'district' => $m->district->name_uz,
+                'slug' => $m->slug,
+                'address' => $m->address,
+                'status' => $m->prayerTimes?->getStatus($now),
+                'prayer_times' => $m->prayerTimes,
+            ];
+        })->values();
+
         // Calculate prayer status globally for Osh (reference: Sulaymon-Too or first available mosque)
         $referenceMosque = $mosques->firstWhere('slug', 'sulaymon-too-markaziy-jome-masjidi') ?? $mosques->first();
         $prayerStatus = $referenceMosque?->prayerTimes?->getStatus($now) ?? [
@@ -77,6 +89,7 @@ class HomeController extends Controller
         return view('home', compact(
             'districts',
             'mosques',
+            'mosquesData',
             'selectedDistrict',
             'search',
             'now',

@@ -3,14 +3,16 @@
 @section('title', "O'sh Viloyati Masjidlari va Namoz Vaqtlari")
 
 @section('content')
-<!-- Hero Section with Islamic Background & Countdown Timer -->
-<div class="relative bg-islamic-pattern text-white overflow-hidden py-12 lg:py-16 shadow-xl">
+<!-- Hero Section with Islamic Background & Mosque Selection Countdown -->
+<div class="relative bg-islamic-pattern text-white overflow-hidden py-12 lg:py-16 shadow-xl"
+     x-data="heroMosqueTracker({{ Js::from($mosquesData) }})"
+     id="heroTracker">
     <!-- Subtle gradient overlay -->
     <div class="absolute inset-0 bg-gradient-to-b from-emerald-950/80 via-emerald-900/90 to-emerald-950 pointer-events-none"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-8">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-400/20 text-amber-300 border border-amber-400/30 mb-4 backdrop-blur-xs">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold bg-amber-400/20 text-amber-300 border border-amber-400/30 mb-4 backdrop-blur-xs">
                 <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C11.5 2 11 2.4 11 3C11 3.2 11.1 3.4 11.2 3.6C10.5 4.3 10 5.4 10 6.6C10 7.8 10.6 8.9 11.5 9.6C9.5 10.5 8 12.6 8 15V21H16V15C16 12.6 14.5 10.5 12.5 9.6C13.4 8.9 14 7.8 14 6.6C14 5.4 13.5 4.3 12.8 3.6C12.9 3.4 13 3.2 13 3C13 2.4 12.5 2 12 2Z"/></svg>
                 O'sh viloyati va shahar masjidlari portali
             </span>
@@ -18,61 +20,122 @@
                 O'sh Viloyati <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400">Masjidlari va Namoz Vaqtlari</span>
             </h1>
             <p class="text-base sm:text-lg text-emerald-150/90 leading-relaxed font-light">
-                Har bir masjidning haqiqiy jamoat (iqomat) vaqtlari, eng yaqin masjidni topish va interaktiv xarita.
+                Har bir masjid o'z jamoat (iqomat) vaqtini mustaqil belgilaydi. Aniq namoz vaqti va sanagichni ko'rish uchun quyidan kerakli masjidni tanlang.
             </p>
         </div>
 
-        <!-- Central Live Countdown Widget with Islamic Mehrab Styling -->
-        <div class="max-w-2xl mx-auto bg-gradient-to-b from-emerald-900/95 via-emerald-950 to-emerald-950 rounded-t-[40px] rounded-b-3xl p-6 sm:p-8 border-t-2 border-x border-b border-amber-400/40 shadow-2xl mb-10 text-center relative overflow-hidden backdrop-blur-md"
-             x-data="countdownTimer({{ $nextPrayerInfo['target_timestamp'] }}, '{{ $nextPrayerInfo['next_name'] }}', '{{ $nextPrayerInfo['next_time'] }}', '{{ $nextPrayerInfo['current_name'] }}')"
-             x-init="start()">
-            <!-- Decorative arch aura -->
-            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-20 bg-amber-400/15 rounded-full blur-xl pointer-events-none"></div>
-
-            <!-- Current Active Prayer Status Pill -->
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-emerald-800/80 text-emerald-200 border border-emerald-600/50 mb-3 shadow-inner">
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>Hozir: <strong class="text-white" x-text="currentName">{{ $nextPrayerInfo['current_name'] }}</strong></span>
-            </div>
-
-            <div class="flex items-center justify-center gap-2 text-amber-300 text-xs sm:text-sm font-bold tracking-wider uppercase mb-1">
-                <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-                <span>Navbatdagi Namoz Vaqti</span>
-            </div>
-            
-            <div class="text-2xl sm:text-4xl font-extrabold text-white mb-2">
-                <span x-text="prayerName">{{ $nextPrayerInfo['next_name'] }}</span>
-                <span class="text-amber-300 ml-2 font-mono" x-text="prayerTime">{{ $nextPrayerInfo['next_time'] }}</span>
-            </div>
-
-            <!-- Live sentence describing remaining time -->
-            <div class="my-3">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-amber-400/15 border border-amber-400/30 text-amber-200 text-xs sm:text-sm font-semibold shadow-inner" x-text="countdownSentence">
-                    {{ $nextPrayerInfo['next_name'] }}ga {{ $nextPrayerInfo['diff_text'] }}
+        <!-- Mosque Selector Cards -->
+        <div class="max-w-2xl mx-auto mb-8">
+            <div class="flex items-center justify-between gap-2 mb-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    <span>Masjidni tanlang:</span>
                 </span>
+                <template x-if="selectedId">
+                    <button type="button" @click="clearSelection()" class="text-xs text-emerald-300 hover:text-amber-300 font-semibold underline transition-colors">
+                        Tanlovni bekor qilish ✕
+                    </button>
+                </template>
             </div>
 
-            <!-- Segmented countdown timer boxes -->
-            <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-sm mx-auto mb-4">
-                <div class="bg-emerald-950/90 border border-amber-500/30 rounded-2xl p-3 sm:p-4 text-center shadow-inner">
-                    <span class="block text-2xl sm:text-4xl font-black text-amber-300 tracking-tight font-mono" x-text="hours">00</span>
-                    <span class="text-[10px] sm:text-xs text-emerald-200 uppercase font-medium">Soat</span>
-                </div>
-                <div class="bg-emerald-950/90 border border-amber-500/30 rounded-2xl p-3 sm:p-4 text-center shadow-inner">
-                    <span class="block text-2xl sm:text-4xl font-black text-amber-300 tracking-tight font-mono" x-text="minutes">00</span>
-                    <span class="text-[10px] sm:text-xs text-emerald-200 uppercase font-medium">Daqiqa</span>
-                </div>
-                <div class="bg-emerald-950/90 border border-amber-500/30 rounded-2xl p-3 sm:p-4 text-center shadow-inner">
-                    <span class="block text-2xl sm:text-4xl font-black text-amber-300 tracking-tight font-mono" x-text="seconds">00</span>
-                    <span class="text-[10px] sm:text-xs text-emerald-200 uppercase font-medium">Soniya</span>
-                </div>
-            </div>
-
-            <div class="mt-4 pt-3.5 border-t border-emerald-800/60 flex items-center justify-center gap-2 text-xs sm:text-sm text-emerald-200/90">
-                <svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                <span>Bugungi sana: <strong class="text-white font-bold">{{ $formattedDate }}</strong></span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <template x-for="m in mosques" :key="m.id">
+                    <button type="button"
+                            @click="selectMosque(m.id)"
+                            :class="selectedId == m.id 
+                                ? 'bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 border-amber-300 shadow-xl shadow-amber-500/25 ring-2 ring-amber-300 scale-[1.02]' 
+                                : 'bg-emerald-900/80 text-emerald-100 hover:bg-emerald-800/90 border-emerald-700/60 shadow-md hover:border-amber-400/50'"
+                            class="p-4 rounded-2xl border text-left transition-all flex items-center justify-between gap-3 group cursor-pointer">
+                        <div class="min-w-0">
+                            <span class="block text-[11px] uppercase tracking-wider font-extrabold opacity-80" x-text="m.district"></span>
+                            <strong class="block text-sm sm:text-base font-black truncate mt-0.5" x-text="m.name"></strong>
+                        </div>
+                        <div :class="selectedId == m.id ? 'bg-slate-900 text-amber-300' : 'bg-emerald-800/90 text-amber-300 group-hover:scale-110'"
+                             class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C11.5 2 11 2.4 11 3C11 3.2 11.1 3.4 11.2 3.6C10.5 4.3 10 5.4 10 6.6C10 7.8 10.6 8.9 11.5 9.6C9.5 10.5 8 12.6 8 15V21H16V15C16 12.6 14.5 10.5 12.5 9.6C13.4 8.9 14 7.8 14 6.6C14 5.4 13.5 4.3 12.8 3.6C12.9 3.4 13 3.2 13 3C13 2.4 12.5 2 12 2Z"/></svg>
+                        </div>
+                    </button>
+                </template>
             </div>
         </div>
+
+        <!-- Case 1: When a mosque is selected - Display the live Mehrab countdown -->
+        <template x-if="selectedMosque">
+            <div class="max-w-2xl mx-auto bg-gradient-to-b from-emerald-900/95 via-emerald-950 to-emerald-950 rounded-t-[40px] rounded-b-3xl p-6 sm:p-8 border-t-2 border-x border-b border-amber-400/40 shadow-2xl mb-10 text-center relative overflow-hidden backdrop-blur-md transition-all">
+                <!-- Decorative arch aura -->
+                <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-20 bg-amber-400/15 rounded-full blur-xl pointer-events-none"></div>
+
+                <!-- Selected Mosque Title Tag -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs sm:text-sm font-extrabold bg-amber-400/20 text-amber-300 border border-amber-400/40 mb-3 shadow-inner">
+                    <svg class="w-4 h-4 text-amber-400 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C11.5 2 11 2.4 11 3C11 3.2 11.1 3.4 11.2 3.6C10.5 4.3 10 5.4 10 6.6C10 7.8 10.6 8.9 11.5 9.6C9.5 10.5 8 12.6 8 15V21H16V15C16 12.6 14.5 10.5 12.5 9.6C13.4 8.9 14 7.8 14 6.6C14 5.4 13.5 4.3 12.8 3.6C12.9 3.4 13 3.2 13 3C13 2.4 12.5 2 12 2Z"/></svg>
+                    <span x-text="selectedMosque.name"></span> (<span x-text="selectedMosque.district"></span>)
+                </div>
+
+                <!-- Current Active Prayer Status Pill -->
+                <div class="block mb-2">
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-emerald-800/80 text-emerald-200 border border-emerald-600/50 shadow-inner">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Hozir: <strong class="text-white" x-text="selectedMosque.status.current_name"></strong></span>
+                    </span>
+                </div>
+
+                <div class="flex items-center justify-center gap-2 text-amber-300 text-xs sm:text-sm font-bold tracking-wider uppercase mb-1">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                    <span>Navbatdagi Namoz Vaqti</span>
+                </div>
+                
+                <div class="text-2xl sm:text-4xl font-extrabold text-white mb-2">
+                    <span x-text="selectedMosque.status.next_name"></span>
+                    <span class="text-amber-300 ml-2 font-mono" x-text="selectedMosque.status.next_time"></span>
+                </div>
+
+                <!-- Live sentence describing remaining time -->
+                <div class="my-3">
+                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-amber-400/15 border border-amber-400/30 text-amber-200 text-xs sm:text-sm font-semibold shadow-inner" x-text="countdownSentence">
+                    </span>
+                </div>
+
+                <!-- Segmented countdown timer boxes -->
+                <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-sm mx-auto mb-4">
+                    <div class="bg-emerald-950/90 border border-amber-500/30 rounded-2xl p-3 sm:p-4 text-center shadow-inner">
+                        <span class="block text-2xl sm:text-4xl font-black text-amber-300 tracking-tight font-mono" x-text="hours">00</span>
+                        <span class="text-[10px] sm:text-xs text-emerald-200 uppercase font-medium">Soat</span>
+                    </div>
+                    <div class="bg-emerald-950/90 border border-amber-500/30 rounded-2xl p-3 sm:p-4 text-center shadow-inner">
+                        <span class="block text-2xl sm:text-4xl font-black text-amber-300 tracking-tight font-mono" x-text="minutes">00</span>
+                        <span class="text-[10px] sm:text-xs text-emerald-200 uppercase font-medium">Daqiqa</span>
+                    </div>
+                    <div class="bg-emerald-950/90 border border-amber-500/30 rounded-2xl p-3 sm:p-4 text-center shadow-inner">
+                        <span class="block text-2xl sm:text-4xl font-black text-amber-300 tracking-tight font-mono" x-text="seconds">00</span>
+                        <span class="text-[10px] sm:text-xs text-emerald-200 uppercase font-medium">Soniya</span>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3.5 border-t border-emerald-800/60 flex items-center justify-center gap-2 text-xs sm:text-sm text-emerald-200/90">
+                    <svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span>Bugungi sana: <strong class="text-white font-bold">{{ $formattedDate }}</strong></span>
+                </div>
+            </div>
+        </template>
+
+        <!-- Case 2: When no mosque is chosen yet - Welcoming prompt inviting user to select -->
+        <template x-if="!selectedMosque">
+            <div class="max-w-xl mx-auto bg-gradient-to-b from-emerald-900/60 via-emerald-950/70 to-emerald-950/80 border border-emerald-700/60 rounded-3xl p-6 sm:p-8 text-center backdrop-blur-xs shadow-xl mb-10">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-800/80 border border-amber-400/40 text-amber-300 mx-auto flex items-center justify-center mb-3.5 shadow-inner">
+                    <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C11.5 2 11 2.4 11 3C11 3.2 11.1 3.4 11.2 3.6C10.5 4.3 10 5.4 10 6.6C10 7.8 10.6 8.9 11.5 9.6C9.5 10.5 8 12.6 8 15V21H16V15C16 12.6 14.5 10.5 12.5 9.6C13.4 8.9 14 7.8 14 6.6C14 5.4 13.5 4.3 12.8 3.6C12.9 3.4 13 3.2 13 3C13 2.4 12.5 2 12 2Z"/></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-1.5">
+                    Aniq namoz vaqtini ko'rish uchun masjidni tanlang
+                </h3>
+                <p class="text-xs sm:text-sm text-emerald-200/80 leading-relaxed mb-4">
+                    O'sh viloyatidagi har bir masjidning o'ziga xos azon va jamoat (iqomat) vaqtlari mavjud. Jonli orqaga hisoblagich taymerni ko'rish uchun yuqoridagi 2 ta masjiddan birini bosing.
+                </p>
+                <div class="inline-flex items-center gap-2 text-xs font-bold text-amber-300 bg-amber-400/10 px-3.5 py-1.5 rounded-full border border-amber-400/20">
+                    <span class="animate-bounce">👆</span>
+                    <span>Yuqoridagi masjiddan birini tanlang</span>
+                </div>
+            </div>
+        </template>
 
         <!-- Quick Action Buttons -->
         <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
@@ -410,7 +473,15 @@
                     </div>
 
                     <!-- Footer actions -->
-                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-2.5">
+                        <button type="button" 
+                                @click="window.scrollTo({top: 0, behavior: 'smooth'}); window.dispatchEvent(new CustomEvent('select-hero-mosque', {detail: {id: {{ $mosque->id }}}}))"
+                                class="py-3 px-3.5 rounded-xl text-xs font-bold text-amber-900 bg-amber-100/80 hover:bg-amber-200/90 border border-amber-200 transition-colors flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+                                title="Ushbu masjid sanagichini tepada ko'rish">
+                            <svg class="w-4 h-4 text-amber-700 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>Taymerni ko'rish</span>
+                        </button>
+
                         <a href="{{ route('mosque.show', $mosque->slug) }}" class="flex-1 text-center py-3 px-4 rounded-xl text-xs sm:text-sm font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 transition-colors">
                             Batafsil ma'lumot
                         </a>
@@ -433,37 +504,55 @@
 
 @push('scripts')
 <script>
-    // 1. Live Countdown Timer Alpine Component for Hero Widget
-    function countdownTimer(targetTimestamp, initialName, initialTime, initialCurrentName) {
+    // 1. Hero Mosque Tracker Component (Dynamic mosque selection & live ticking countdown)
+    function heroMosqueTracker(mosquesList, initialId = null) {
         return {
-            target: targetTimestamp * 1000,
-            prayerName: initialName,
-            prayerTime: initialTime,
-            currentName: initialCurrentName,
+            mosques: mosquesList,
+            selectedId: initialId,
+            selectedMosque: null,
             hours: '00',
             minutes: '00',
             seconds: '00',
             countdownSentence: '',
-            start() {
+            timerInterval: null,
+            init() {
+                window.addEventListener('select-hero-mosque', (e) => {
+                    if (e.detail && e.detail.id) {
+                        this.selectMosque(e.detail.id);
+                    }
+                });
+
+                if (this.selectedId) {
+                    this.selectMosque(this.selectedId);
+                }
+            },
+            selectMosque(id) {
+                this.selectedId = id;
+                this.selectedMosque = this.mosques.find(m => m.id == id) || null;
+                if (this.timerInterval) clearInterval(this.timerInterval);
                 this.update();
-                setInterval(() => {
-                    this.update();
-                }, 1000);
+                this.timerInterval = setInterval(() => this.update(), 1000);
+            },
+            clearSelection() {
+                this.selectedId = null;
+                this.selectedMosque = null;
+                if (this.timerInterval) clearInterval(this.timerInterval);
             },
             update() {
+                if (!this.selectedMosque || !this.selectedMosque.status) return;
+                const target = this.selectedMosque.status.target_timestamp * 1000;
                 const now = new Date().getTime();
-                let diff = this.target - now;
+                let diff = target - now;
 
                 if (diff <= 0) {
-                    diff = 0;
                     this.hours = '00';
                     this.minutes = '00';
                     this.seconds = '00';
-                    this.countdownSentence = `${this.prayerName} vaqti kirdi!`;
+                    this.countdownSentence = `${this.selectedMosque.status.next_name} vaqti kirdi!`;
                     return;
                 }
 
-                const h = Math.floor((diff / (1000 * 60 * 60)));
+                const h = Math.floor(diff / (1000 * 60 * 60));
                 const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 const s = Math.floor((diff % (1000 * 60)) / 1000);
 
@@ -471,12 +560,13 @@
                 this.minutes = String(m).padStart(2, '0');
                 this.seconds = String(s).padStart(2, '0');
 
+                const nextName = this.selectedMosque.status.next_name;
                 if (h > 0) {
-                    this.countdownSentence = `${this.prayerName}ga ${h} soat-u ${m} daqiqa qoldi`;
+                    this.countdownSentence = `${nextName}ga ${h} soat-u ${m} daqiqa qoldi`;
                 } else if (m > 0) {
-                    this.countdownSentence = `${this.prayerName}ga ${m} daqiqa-yu ${s} soniya qoldi`;
+                    this.countdownSentence = `${nextName}ga ${m} daqiqa-yu ${s} soniya qoldi`;
                 } else {
-                    this.countdownSentence = `${this.prayerName}ga ${s} soniya qoldi`;
+                    this.countdownSentence = `${nextName}ga ${s} soniya qoldi`;
                 }
             }
         };
