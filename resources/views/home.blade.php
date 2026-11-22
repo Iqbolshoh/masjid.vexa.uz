@@ -67,7 +67,7 @@
                 <span>Menga eng yaqin masjidlar (GPS)</span>
             </button>
 
-            <a href="#karta" 
+            <a href="#map" 
                class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl text-sm font-bold text-white bg-white/15 hover:bg-white/20 border border-white/20 backdrop-blur-md shadow-lg active:scale-95 transition-all">
                 <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
                 <span>Xaritada ko'rish</span>
@@ -77,7 +77,7 @@
 </div>
 
 <!-- Main Body: Search, Filters, Map & Mosque Cards -->
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="masjidlar-bolimi">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" id="mosques-section">
 
     <!-- Search & Filter Header -->
     <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200/80 mb-8">
@@ -142,7 +142,7 @@
     </div>
 
     <!-- SECTION 2: Interactive Leaflet Map (Stage 2) -->
-    <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200/80 mb-10" id="karta">
+    <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200/80 mb-10" id="map">
         <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
             <div>
                 <div class="flex items-center gap-2">
@@ -427,7 +427,7 @@
                     </div>
 
                     <div class="flex items-center gap-1.5">
-                        <a href="/masjid/${m.slug}" class="flex-1 text-center py-1.5 rounded-lg text-xs font-bold text-white bg-emerald-700 hover:bg-emerald-800">
+                        <a href="/mosque/${m.slug}" class="flex-1 text-center py-1.5 rounded-lg text-xs font-bold text-white bg-emerald-700 hover:bg-emerald-800">
                             Batafsil
                         </a>
                         <a href="https://yandex.com/maps/?rtext=~${m.latitude},${m.longitude}&rtt=auto" target="_blank" class="px-2 py-1.5 rounded-lg text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200" title="Navigator">
@@ -491,7 +491,7 @@
 
     function locateOnMap() {
         findNearestMosques();
-        document.getElementById('karta').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('map').scrollIntoView({ behavior: 'smooth' });
     }
 
     function calculateAndSortCards(userLat, userLng) {

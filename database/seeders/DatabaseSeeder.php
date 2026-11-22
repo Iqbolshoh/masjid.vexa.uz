@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Superadmin
+        // 1. Superadmin account
         $superadmin = User::firstOrCreate(
-            ['email' => 'admin@vexa.uz'],
+            ['email' => 'admin@osh-masjid.kg'],
             [
-                'name' => 'Bosh Administrator',
+                'name' => 'General Administrator',
                 'password' => Hash::make('admin12345'),
                 'role' => 'superadmin',
                 'phone' => '+996 555 123 456',
@@ -63,8 +63,8 @@ class DatabaseSeeder extends Seeder
                 'has_ablution' => true,
                 'has_parking' => true,
                 'description' => "O'sh viloyati va shahrining bosh markaziy jome masjidi.",
-                'admin_name' => "Sulaymon-Too Masjid Mas'uli",
-                'admin_email' => "sulaymon@vexa.uz",
+                'admin_name' => "Sulaymon-Too Mosque Admin",
+                'admin_email' => "sulaymon@osh-masjid.kg",
                 'prayer' => [
                     'fajr_adhan' => '05:55',
                     'fajr_iqama' => '06:25',
@@ -96,8 +96,8 @@ class DatabaseSeeder extends Seeder
                 'has_ablution' => true,
                 'has_parking' => true,
                 'description' => "Shahar markazidagi gavjum va qulay jome masjid.",
-                'admin_name' => "Buxoriy Masjid Mas'uli",
-                'admin_email' => "buxoriy@vexa.uz",
+                'admin_name' => "Bukhari Mosque Admin",
+                'admin_email' => "buxoriy@osh-masjid.kg",
                 'prayer' => [
                     'fajr_adhan' => '05:55',
                     'fajr_iqama' => '06:30',
@@ -129,8 +129,8 @@ class DatabaseSeeder extends Seeder
                 'has_ablution' => true,
                 'has_parking' => true,
                 'description' => "Shark aholi yashash massividagi jome masjidi.",
-                'admin_name' => "Saraxsiy Masjid Mas'uli",
-                'admin_email' => "saraxsiy@vexa.uz",
+                'admin_name' => "Sarakhsi Mosque Admin",
+                'admin_email' => "saraxsiy@osh-masjid.kg",
                 'prayer' => [
                     'fajr_adhan' => '05:55',
                     'fajr_iqama' => '06:20',
@@ -162,8 +162,8 @@ class DatabaseSeeder extends Seeder
                 'has_ablution' => true,
                 'has_parking' => false,
                 'description' => "Cheryomushki mikrorayonidagi shinam mahalla masjidi.",
-                'admin_name' => "Ravza Masjid Mas'uli",
-                'admin_email' => "ravza@vexa.uz",
+                'admin_name' => "Ravza Mosque Admin",
+                'admin_email' => "ravza@osh-masjid.kg",
                 'prayer' => [
                     'fajr_adhan' => '05:55',
                     'fajr_iqama' => '06:25',
@@ -195,8 +195,8 @@ class DatabaseSeeder extends Seeder
                 'has_ablution' => true,
                 'has_parking' => true,
                 'description' => "Qorasuv tumanining asosiy yirik jome masjidi.",
-                'admin_name' => "Qorasuv Masjid Mas'uli",
-                'admin_email' => "qorasuv@vexa.uz",
+                'admin_name' => "Qorasuv Mosque Admin",
+                'admin_email' => "qorasuv@osh-masjid.kg",
                 'prayer' => [
                     'fajr_adhan' => '05:55',
                     'fajr_iqama' => '06:25',
@@ -228,8 +228,8 @@ class DatabaseSeeder extends Seeder
                 'has_ablution' => true,
                 'has_parking' => true,
                 'description' => "Novqat tuman markazidagi muhtasham jome masjid.",
-                'admin_name' => "Novqat Masjid Mas'uli",
-                'admin_email' => "novqat@vexa.uz",
+                'admin_name' => "Nookat Mosque Admin",
+                'admin_email' => "novqat@osh-masjid.kg",
                 'prayer' => [
                     'fajr_adhan' => '05:56',
                     'fajr_iqama' => '06:30',
@@ -261,8 +261,8 @@ class DatabaseSeeder extends Seeder
                 'has_ablution' => true,
                 'has_parking' => true,
                 'description' => "Tarixiy O'zgan shahrining eng qadimiy va ko'rkam jome masjidi.",
-                'admin_name' => "O'zgan Masjid Mas'uli",
-                'admin_email' => "ozgan@vexa.uz",
+                'admin_name' => "Uzgen Mosque Admin",
+                'admin_email' => "ozgan@osh-masjid.kg",
                 'prayer' => [
                     'fajr_adhan' => '05:52',
                     'fajr_iqama' => '06:20',
@@ -294,8 +294,8 @@ class DatabaseSeeder extends Seeder
                 'has_ablution' => true,
                 'has_parking' => true,
                 'description' => "Aravon tumanidagi markaziy jome masjidi.",
-                'admin_name' => "Aravon Masjid Mas'uli",
-                'admin_email' => "aravon@vexa.uz",
+                'admin_name' => "Aravan Mosque Admin",
+                'admin_email' => "aravon@osh-masjid.kg",
                 'prayer' => [
                     'fajr_adhan' => '05:56',
                     'fajr_iqama' => '06:25',

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#064e3b">
-    <title>@yield('title', "O'sh Viloyati Masjidlari va Namoz Vaqtlari") | masjid.vexa.uz</title>
+    <title>@yield('title', "O'sh Viloyati Masjidlari va Namoz Vaqtlari")</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,13 +65,13 @@
                             Masjidlar
                         </span>
                     </div>
-                    <p class="text-xs text-slate-500 font-medium">Jamoat vaqtlari & interaktiv xarita • .vexa.uz</p>
+                    <p class="text-xs text-slate-500 font-medium">Jamoat vaqtlari & interaktiv xarita</p>
                 </div>
             </a>
 
             <!-- Navigation Links -->
             <div class="flex items-center gap-3">
-                <a href="{{ route('home') }}#karta" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 transition-all border border-slate-200">
+                <a href="{{ route('home') }}#map" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 transition-all border border-slate-200">
                     <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
                     Xarita
                 </a>
@@ -176,7 +176,7 @@
                         <span class="bg-slate-800 px-2.5 py-1 rounded-lg">Chon-Oloy</span>
                     </div>
                     <div class="mt-4 pt-3 border-t border-slate-800 text-xs text-slate-500">
-                        Loyihaviy platforma: <span class="text-emerald-400 font-semibold">masjid.vexa.uz</span>
+                        Platforma: <span class="text-emerald-400 font-semibold">O'sh Namoz Portali</span>
                     </div>
                 </div>
             </div>
@@ -186,7 +186,7 @@
                 <div class="flex items-center gap-6">
                     <a href="{{ route('home') }}" class="hover:text-emerald-400 transition-colors">Bosh sahifa</a>
                     <a href="{{ route('login') }}" class="hover:text-emerald-400 transition-colors">Masjid Admini</a>
-                    <a href="https://vexa.uz" target="_blank" class="hover:text-emerald-400 transition-colors">Vexa.uz</a>
+                    <a href="{{ route('home') }}#map" class="hover:text-emerald-400 transition-colors">Xarita</a>
                 </div>
             </div>
         </div>

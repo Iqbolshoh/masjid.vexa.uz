@@ -42,7 +42,7 @@
                        value="{{ old('email') }}"
                        required 
                        autofocus
-                       placeholder="admin@vexa.uz"
+                       placeholder="admin@osh-masjid.kg"
                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm focus:outline-hidden focus:ring-2 focus:ring-emerald-600 focus:bg-white transition-all">
             </div>
 
@@ -80,19 +80,19 @@
             <div class="bg-slate-50 rounded-2xl p-3.5 border border-slate-200 text-xs space-y-2 text-slate-600">
                 <div class="flex justify-between items-center pb-1.5 border-b border-slate-200/60">
                     <span class="font-bold text-slate-800">Sulaymon-Too masjidi:</span>
-                    <button type="button" onclick="fillForm('sulaymon@vexa.uz', 'masjid123')" class="text-emerald-700 hover:underline font-semibold">
+                    <button type="button" onclick="fillForm('sulaymon@osh-masjid.kg', 'masjid123')" class="text-emerald-700 hover:underline font-semibold">
                         To'ldirish
                     </button>
                 </div>
                 <div class="flex justify-between items-center pb-1.5 border-b border-slate-200/60">
                     <span class="font-bold text-slate-800">Imom Buxoriy masjidi:</span>
-                    <button type="button" onclick="fillForm('buxoriy@vexa.uz', 'masjid123')" class="text-emerald-700 hover:underline font-semibold">
+                    <button type="button" onclick="fillForm('buxoriy@osh-masjid.kg', 'masjid123')" class="text-emerald-700 hover:underline font-semibold">
                         To'ldirish
                     </button>
                 </div>
                 <div class="flex justify-between items-center">
                     <span class="font-bold text-slate-800">Superadmin:</span>
-                    <button type="button" onclick="fillForm('admin@vexa.uz', 'admin12345')" class="text-emerald-700 hover:underline font-semibold">
+                    <button type="button" onclick="fillForm('admin@osh-masjid.kg', 'admin12345')" class="text-emerald-700 hover:underline font-semibold">
                         To'ldirish
                     </button>
                 </div>

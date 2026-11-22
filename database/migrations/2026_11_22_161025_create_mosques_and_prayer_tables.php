@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // 2. Add role and phone to users
+        // 2. Add role, phone and active status to users
         Schema::table('users', function (Blueprint $table) {
             $table->string('role')->default('mosque_admin')->after('email'); // superadmin, mosque_admin
             $table->string('phone')->nullable()->after('role');
@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('address');
-            $table->string('landmark')->nullable(); // mo'ljal
+            $table->string('landmark')->nullable(); // landmark / orientation point
             $table->string('phone')->nullable();
             $table->string('imam_name')->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->integer('capacity')->nullable();
             $table->boolean('has_women_area')->default(false);
-            $table->boolean('has_ablution')->default(true); // tahoratxona
+            $table->boolean('has_ablution')->default(true); // ablution facility
             $table->boolean('has_parking')->default(false);
             $table->text('description')->nullable();
             $table->boolean('is_verified')->default(true);
@@ -56,32 +56,32 @@ return new class extends Migration
             $table->id();
             $table->foreignId('mosque_id')->constrained('mosques')->cascadeOnDelete()->unique();
             
-            // Bomdod
-            $table->string('fajr_adhan', 10)->default('06:00');
-            $table->string('fajr_iqama', 10)->default('06:30');
-            $table->string('sunrise', 10)->default('07:30');
+            // Fajr prayer
+            $table->string('fajr_adhan', 10)->default('05:55');
+            $table->string('fajr_iqama', 10)->default('06:25');
+            $table->string('sunrise', 10)->default('07:22');
             
-            // Peshin
+            // Dhuhr prayer
             $table->string('dhuhr_adhan', 10)->default('12:45');
             $table->string('dhuhr_iqama', 10)->default('13:00');
             
-            // Asr
+            // Asr prayer
             $table->string('asr_adhan', 10)->default('15:15');
             $table->string('asr_iqama', 10)->default('15:30');
             
-            // Shom
-            $table->string('maghrib_adhan', 10)->default('17:10');
+            // Maghrib prayer
+            $table->string('maghrib_adhan', 10)->default('17:08');
             $table->string('maghrib_iqama', 10)->default('17:15');
             
-            // Xufton
+            // Isha prayer
             $table->string('isha_adhan', 10)->default('18:40');
             $table->string('isha_iqama', 10)->default('19:00');
             
-            // Juma
+            // Friday Juma prayer
             $table->string('juma_bayan', 10)->default('12:30');
             $table->string('juma_iqama', 10)->default('13:00');
             
-            // Announcement/Notice
+            // Announcements and audit
             $table->text('announcement')->nullable();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();

@@ -1,6 +1,5 @@
 # 🕌 O'sh Viloyati Masjidlari va Namoz Vaqtlari Portali
 
-> **Jonli domen**: [https://masjid.vexa.uz](https://masjid.vexa.uz)  
 > Qirg'izistonning O'sh viloyati va O'sh shahri masjidlari uchun jamoat namozi vaqtlari va interaktiv xarita tizimi.
 
 ---

@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 class MosqueAdminController extends Controller
 {
     /**
-     * Mosque Admin Dashboard (Their own assigned mosque)
+     * Display the mosque administration dashboard.
      */
     public function dashboard()
     {
@@ -38,13 +38,13 @@ class MosqueAdminController extends Controller
     }
 
     /**
-     * Update Prayer times
+     * Update prayer times for a given mosque.
      */
     public function updatePrayerTimes(Request $request, Mosque $mosque)
     {
         $user = Auth::user();
         if (!$user->isSuperAdmin() && $mosque->admin_id !== $user->id) {
-            abort(403, 'Ruxsat berilmagan!');
+            abort(403, 'Unauthorized action.');
         }
 
         $validated = $request->validate([
@@ -73,7 +73,7 @@ class MosqueAdminController extends Controller
             $validated
         );
 
-        // Record log
+        // Record audit log
         PrayerLog::create([
             'mosque_id' => $mosque->id,
             'user_id' => $user->id,
@@ -81,20 +81,20 @@ class MosqueAdminController extends Controller
                 'old' => $oldTimes,
                 'new' => $validated,
             ],
-            'comment' => "Namoz vaqtlari yangilandi.",
+            'comment' => "Prayer times updated.",
         ]);
 
         return back()->with('success', "Namoz vaqtlari muvaffaqiyatli saqlandi va saytda yangilandi!");
     }
 
     /**
-     * Update Mosque Details (Phone, Imam, Coordinates, Amenities)
+     * Update mosque details, contact, amenities, and geographic coordinates.
      */
     public function updateDetails(Request $request, Mosque $mosque)
     {
         $user = Auth::user();
         if (!$user->isSuperAdmin() && $mosque->admin_id !== $user->id) {
-            abort(403, 'Ruxsat berilmagan!');
+            abort(403, 'Unauthorized action.');
         }
 
         $validated = $request->validate([
@@ -121,7 +121,7 @@ class MosqueAdminController extends Controller
     }
 
     /**
-     * Superadmin Overview
+     * Display the superadmin dashboard.
      */
     public function superadminDashboard()
     {
@@ -133,7 +133,7 @@ class MosqueAdminController extends Controller
     }
 
     /**
-     * Superadmin: Create New Mosque
+     * Store a newly created mosque along with its assigned administrator.
      */
     public function storeMosque(Request $request)
     {
@@ -151,7 +151,7 @@ class MosqueAdminController extends Controller
             'admin_password' => 'required|string|min:6',
         ]);
 
-        // 1. Create Admin User
+        // 1. Create Mosque Administrator User
         $admin = User::create([
             'name' => $validated['admin_name'],
             'email' => $validated['admin_email'],
@@ -161,7 +161,7 @@ class MosqueAdminController extends Controller
             'is_active' => true,
         ]);
 
-        // 2. Create Mosque
+        // 2. Create Mosque record
         $slug = Str::slug($validated['name']);
         if (Mosque::where('slug', $slug)->exists()) {
             $slug .= '-' . rand(10, 99);

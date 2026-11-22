@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    /**
+     * Display the portal landing page with prayer times and active mosques.
+     */
     public function index(Request $request)
     {
         $now = Carbon::now('Asia/Bishkek');
@@ -39,9 +42,9 @@ class HomeController extends Controller
 
         $mosques = $query->orderBy('district_id')->orderBy('id')->get();
 
-        // Calculate next prayer globally for Osh (reference: first mosque or Sulaymon-Too)
-        $refMosque = $mosques->firstWhere('slug', 'sulaymon-too-markaziy-jome-masjidi') ?? $mosques->first();
-        $nextPrayerInfo = $this->calculateNextPrayer($refMosque?->prayerTimes, $now);
+        // Calculate next prayer globally for Osh (reference: Sulaymon-Too or first available mosque)
+        $referenceMosque = $mosques->firstWhere('slug', 'sulaymon-too-markaziy-jome-masjidi') ?? $mosques->first();
+        $nextPrayerInfo = $this->calculateNextPrayer($referenceMosque?->prayerTimes, $now);
 
         return view('home', compact(
             'districts',
@@ -54,6 +57,9 @@ class HomeController extends Controller
         ));
     }
 
+    /**
+     * Return JSON data of all mosques for the interactive Leaflet map.
+     */
     public function getMosquesApi()
     {
         $now = Carbon::now('Asia/Bishkek');
@@ -63,33 +69,36 @@ class HomeController extends Controller
             ->whereNotNull('latitude')
             ->whereNotNull('longitude')
             ->get()
-            ->map(function ($m) use ($now) {
-                $next = $this->calculateNextPrayer($m->prayerTimes, $now);
+            ->map(function ($mosque) use ($now) {
+                $next = $this->calculateNextPrayer($mosque->prayerTimes, $now);
                 return [
-                    'id' => $m->id,
-                    'name' => $m->name,
-                    'slug' => $m->slug,
-                    'district' => $m->district->name_uz,
-                    'address' => $m->address,
-                    'phone' => $m->phone,
-                    'imam' => $m->imam_name,
-                    'latitude' => $m->latitude,
-                    'longitude' => $m->longitude,
+                    'id' => $mosque->id,
+                    'name' => $mosque->name,
+                    'slug' => $mosque->slug,
+                    'district' => $mosque->district->name_uz,
+                    'address' => $mosque->address,
+                    'phone' => $mosque->phone,
+                    'imam' => $mosque->imam_name,
+                    'latitude' => $mosque->latitude,
+                    'longitude' => $mosque->longitude,
                     'amenities' => [
-                        'women' => $m->has_women_area,
-                        'ablution' => $m->has_ablution,
-                        'parking' => $m->has_parking,
+                        'women' => $mosque->has_women_area,
+                        'ablution' => $mosque->has_ablution,
+                        'parking' => $mosque->has_parking,
                     ],
-                    'prayer_times' => $m->prayerTimes,
+                    'prayer_times' => $mosque->prayerTimes,
                     'next_prayer' => $next,
-                    'updated_at' => $m->prayerTimes?->updated_at?->diffForHumans() ?? 'Yaqinda',
+                    'updated_at' => $mosque->prayerTimes?->updated_at?->diffForHumans() ?? 'Recently',
                 ];
             });
 
         return response()->json($mosques);
     }
 
-    private function calculateNextPrayer($prayerTimes, Carbon $now)
+    /**
+     * Compute next upcoming prayer time based on current time.
+     */
+    private function calculateNextPrayer($prayerTimes, Carbon $now): array
     {
         if (!$prayerTimes) {
             return [
@@ -112,25 +121,25 @@ class HomeController extends Controller
 
         $currentMinutes = $now->hour * 60 + $now->minute;
 
-        foreach ($schedule as $name => $timeStr) {
-            if (!$timeStr) continue;
-            [$h, $m] = explode(':', $timeStr);
-            $prayerMinutes = (int)$h * 60 + (int)$m;
+        foreach ($schedule as $name => $timeString) {
+            if (!$timeString) continue;
+            [$hour, $minute] = explode(':', $timeString);
+            $prayerMinutes = (int)$hour * 60 + (int)$minute;
 
             if ($prayerMinutes > $currentMinutes) {
-                $target = $now->copy()->setTime((int)$h, (int)$m, 0);
+                $target = $now->copy()->setTime((int)$hour, (int)$minute, 0);
                 return [
                     'name' => $name,
-                    'time' => $timeStr,
+                    'time' => $timeString,
                     'target_timestamp' => $target->timestamp,
                     'is_tomorrow' => false,
                 ];
             }
         }
 
-        // If all prayers passed today, next is tomorrow's Fajr
-        [$h, $m] = explode(':', $prayerTimes->fajr_iqama);
-        $target = $now->copy()->addDay()->setTime((int)$h, (int)$m, 0);
+        // If all scheduled prayers have passed today, target tomorrow's Fajr
+        [$hour, $minute] = explode(':', $prayerTimes->fajr_iqama);
+        $target = $now->copy()->addDay()->setTime((int)$hour, (int)$minute, 0);
 
         return [
             'name' => 'Bomdod (Jamoat)',
