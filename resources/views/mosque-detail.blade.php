@@ -74,8 +74,54 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Main Column: Full Prayer Times Table -->
-        <div class="lg:col-span-2 space-y-8">
+        <!-- Main Column: Full Prayer Times Table & Live Countdown -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Live Prayer Status & Countdown Widget for Mosque Detail -->
+            @if(isset($prayerStatus) && $prayerStatus)
+                <div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 rounded-3xl p-6 sm:p-7 border border-amber-400/40 text-white shadow-xl relative overflow-hidden backdrop-blur-md"
+                     x-data="countdownTimer({{ $prayerStatus['target_timestamp'] }}, '{{ $prayerStatus['next_name'] }}', '{{ $prayerStatus['next_time'] }}', '{{ $prayerStatus['current_name'] }}')"
+                     x-init="start()">
+                    <!-- Decorative subtle arch glow -->
+                    <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-20 bg-amber-400/15 rounded-full blur-xl pointer-events-none"></div>
+
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative">
+                        <div>
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold bg-emerald-800/80 text-emerald-200 border border-emerald-600/50 mb-2.5 shadow-inner">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span>Ayni paytdagi holat: <strong class="text-white" x-text="currentName">{{ $prayerStatus['current_name'] }}</strong></span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+                                Navbatdagi: <span class="text-amber-300" x-text="prayerName">{{ $prayerStatus['next_name'] }}</span>
+                                <span class="font-mono text-amber-200 ml-1" x-text="prayerTime">({{ $prayerStatus['next_time'] }})</span>
+                            </h3>
+                            <p class="text-xs sm:text-sm text-emerald-200 font-semibold mt-1">
+                                <span class="text-amber-300" x-text="countdownSentence">
+                                    {{ $prayerStatus['next_name'] }}ga {{ $prayerStatus['diff_text'] }}
+                                </span>
+                            </p>
+                        </div>
+
+                        <!-- Real-time ticking segments -->
+                        <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                            <div class="bg-emerald-950/90 border border-amber-500/30 rounded-2xl px-3.5 py-2 text-center min-w-[64px] shadow-inner">
+                                <span class="block text-2xl font-black text-amber-300 font-mono" x-text="hours">00</span>
+                                <span class="text-[9px] text-emerald-200 uppercase font-medium">Soat</span>
+                            </div>
+                            <span class="text-amber-400 font-bold text-xl">:</span>
+                            <div class="bg-emerald-950/90 border border-amber-500/30 rounded-2xl px-3.5 py-2 text-center min-w-[64px] shadow-inner">
+                                <span class="block text-2xl font-black text-amber-300 font-mono" x-text="minutes">00</span>
+                                <span class="text-[9px] text-emerald-200 uppercase font-medium">Daqiqa</span>
+                            </div>
+                            <span class="text-amber-400 font-bold text-xl">:</span>
+                            <div class="bg-emerald-950/90 border border-amber-500/30 rounded-2xl px-3.5 py-2 text-center min-w-[64px] shadow-inner">
+                                <span class="block text-2xl font-black text-amber-300 font-mono" x-text="seconds">00</span>
+                                <span class="text-[9px] text-emerald-200 uppercase font-medium">Soniya</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200/80">
                 <div class="flex items-center justify-between mb-6">
                     <div>
@@ -92,7 +138,11 @@
                     </span>
                 </div>
 
-                @php $p = $mosque->prayerTimes; @endphp
+                @php 
+                    $p = $mosque->prayerTimes; 
+                    $stKey = $prayerStatus['current_key'] ?? '';
+                    $nxtKey = $prayerStatus['next_key'] ?? '';
+                @endphp
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead>
@@ -103,50 +153,80 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 text-sm">
-                            <tr class="hover:bg-slate-50 transition-colors">
+                            <tr class="transition-colors {{ $stKey === 'fajr' ? 'bg-emerald-100/70 font-bold border-l-4 border-l-emerald-600' : ($nxtKey === 'fajr' ? 'bg-amber-100/60 font-semibold border-l-4 border-l-amber-500' : 'hover:bg-slate-50') }}">
                                 <td class="py-4 pl-2 font-bold text-slate-800 flex items-center gap-2">
                                     <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
-                                    Bomdod
+                                    <span>Bomdod</span>
+                                    @if($stKey === 'fajr')
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-emerald-200 text-emerald-900">Hozir</span>
+                                    @elseif($nxtKey === 'fajr')
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900">Keyingi</span>
+                                    @endif
                                 </td>
                                 <td class="py-4 text-center font-medium text-slate-500">{{ $p?->fajr_adhan ?? '--:--' }}</td>
                                 <td class="py-4 text-right pr-2 font-black text-xl text-emerald-800">{{ $p?->fajr_iqama ?? '--:--' }}</td>
                             </tr>
-                            <tr class="hover:bg-slate-50 transition-colors bg-amber-50/40">
+                            <tr class="transition-colors {{ $stKey === 'sunrise' ? 'bg-amber-200/50 font-bold border-l-4 border-l-amber-600' : ($nxtKey === 'sunrise' ? 'bg-amber-100/60 font-semibold border-l-4 border-l-amber-500' : 'bg-amber-50/40 hover:bg-slate-50') }}">
                                 <td class="py-4 pl-2 font-bold text-amber-800 flex items-center gap-2">
                                     <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-                                    Quyosh chiqishi
+                                    <span>Quyosh chiqishi</span>
+                                    @if($stKey === 'sunrise')
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900">Hozir</span>
+                                    @elseif($nxtKey === 'sunrise')
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900">Keyingi</span>
+                                    @endif
                                 </td>
                                 <td class="py-4 text-center font-medium text-slate-400">--:--</td>
                                 <td class="py-4 text-right pr-2 font-bold text-lg text-amber-800">{{ $p?->sunrise ?? '--:--' }}</td>
                             </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
+                            <tr class="transition-colors {{ $stKey === 'dhuhr' ? 'bg-emerald-100/70 font-bold border-l-4 border-l-emerald-600' : ($nxtKey === 'dhuhr' ? 'bg-amber-100/60 font-semibold border-l-4 border-l-amber-500' : 'hover:bg-slate-50') }}">
                                 <td class="py-4 pl-2 font-bold text-slate-800 flex items-center gap-2">
                                     <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
-                                    Peshin
+                                    <span>Peshin</span>
+                                    @if($stKey === 'dhuhr')
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-emerald-200 text-emerald-900">Hozir</span>
+                                    @elseif($nxtKey === 'dhuhr')
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900">Keyingi</span>
+                                    @endif
                                 </td>
                                 <td class="py-4 text-center font-medium text-slate-500">{{ $p?->dhuhr_adhan ?? '--:--' }}</td>
                                 <td class="py-4 text-right pr-2 font-black text-xl text-emerald-800">{{ $p?->dhuhr_iqama ?? '--:--' }}</td>
                             </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
+                            <tr class="transition-colors {{ $stKey === 'asr' ? 'bg-emerald-100/70 font-bold border-l-4 border-l-emerald-600' : ($nxtKey === 'asr' ? 'bg-amber-100/60 font-semibold border-l-4 border-l-amber-500' : 'hover:bg-slate-50') }}">
                                 <td class="py-4 pl-2 font-bold text-slate-800 flex items-center gap-2">
                                     <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
-                                    Asr
+                                    <span>Asr</span>
+                                    @if($stKey === 'asr')
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-emerald-200 text-emerald-900">Hozir</span>
+                                    @elseif($nxtKey === 'asr')
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900">Keyingi</span>
+                                    @endif
                                 </td>
                                 <td class="py-4 text-center font-medium text-slate-500">{{ $p?->asr_adhan ?? '--:--' }}</td>
                                 <td class="py-4 text-right pr-2 font-black text-xl text-emerald-800">{{ $p?->asr_iqama ?? '--:--' }}</td>
                             </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
+                            <tr class="transition-colors {{ $stKey === 'maghrib' ? 'bg-emerald-100/70 font-bold border-l-4 border-l-emerald-600' : ($nxtKey === 'maghrib' ? 'bg-amber-100/60 font-semibold border-l-4 border-l-amber-500' : 'hover:bg-slate-50') }}">
                                 <td class="py-4 pl-2 font-bold text-slate-800 flex items-center gap-2">
                                     <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
-                                    Shom
+                                    <span>Shom</span>
+                                    @if($stKey === 'maghrib')
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-emerald-200 text-emerald-900">Hozir</span>
+                                    @elseif($nxtKey === 'maghrib')
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900">Keyingi</span>
+                                    @endif
                                 </td>
                                 <td class="py-4 text-center font-medium text-slate-500">{{ $p?->maghrib_adhan ?? '--:--' }}</td>
                                 <td class="py-4 text-right pr-2 font-black text-xl text-emerald-800">{{ $p?->maghrib_iqama ?? '--:--' }}</td>
                             </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
+                            <tr class="transition-colors {{ $stKey === 'isha' ? 'bg-emerald-100/70 font-bold border-l-4 border-l-emerald-600' : ($nxtKey === 'isha' ? 'bg-amber-100/60 font-semibold border-l-4 border-l-amber-500' : 'hover:bg-slate-50') }}">
                                 <td class="py-4 pl-2 font-bold text-slate-800 flex items-center gap-2">
                                     <span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
-                                    Xufton
+                                    <span>Xufton</span>
+                                    @if($stKey === 'isha')
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-emerald-200 text-emerald-900">Hozir</span>
+                                    @elseif($nxtKey === 'isha')
+                                        <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900">Keyingi</span>
+                                    @endif
                                 </td>
                                 <td class="py-4 text-center font-medium text-slate-500">{{ $p?->isha_adhan ?? '--:--' }}</td>
                                 <td class="py-4 text-right pr-2 font-black text-xl text-emerald-800">{{ $p?->isha_iqama ?? '--:--' }}</td>
@@ -154,7 +234,7 @@
                             <tr class="hover:bg-emerald-50/50 transition-colors bg-emerald-50/30">
                                 <td class="py-4 pl-2 font-extrabold text-emerald-900 flex items-center gap-2">
                                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
-                                    Juma Namozi
+                                    <span>Juma Namozi</span>
                                 </td>
                                 <td class="py-4 text-center font-medium text-slate-500">Ma'ruza: {{ $p?->juma_bayan ?? '12:30' }}</td>
                                 <td class="py-4 text-right pr-2 font-black text-xl text-emerald-900">Farz: {{ $p?->juma_iqama ?? '13:00' }}</td>
@@ -247,6 +327,56 @@
 @endsection
 
 @push('scripts')
+<script>
+    // Live Countdown Timer Alpine Component
+    function countdownTimer(targetTimestamp, initialName, initialTime, initialCurrentName) {
+        return {
+            target: targetTimestamp * 1000,
+            prayerName: initialName,
+            prayerTime: initialTime,
+            currentName: initialCurrentName,
+            hours: '00',
+            minutes: '00',
+            seconds: '00',
+            countdownSentence: '',
+            start() {
+                this.update();
+                setInterval(() => {
+                    this.update();
+                }, 1000);
+            },
+            update() {
+                const now = new Date().getTime();
+                let diff = this.target - now;
+
+                if (diff <= 0) {
+                    diff = 0;
+                    this.hours = '00';
+                    this.minutes = '00';
+                    this.seconds = '00';
+                    this.countdownSentence = `${this.prayerName} vaqti kirdi!`;
+                    return;
+                }
+
+                const h = Math.floor((diff / (1000 * 60 * 60)));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                this.hours = String(h).padStart(2, '0');
+                this.minutes = String(m).padStart(2, '0');
+                this.seconds = String(s).padStart(2, '0');
+
+                if (h > 0) {
+                    this.countdownSentence = `${this.prayerName}ga ${h} soat-u ${m} daqiqa qoldi`;
+                } else if (m > 0) {
+                    this.countdownSentence = `${this.prayerName}ga ${m} daqiqa-yu ${s} soniya qoldi`;
+                } else {
+                    this.countdownSentence = `${this.prayerName}ga ${s} soniya qoldi`;
+                }
+            }
+        };
+    }
+</script>
 @if($mosque->latitude && $mosque->longitude)
 <script>
     document.addEventListener('DOMContentLoaded', function () {

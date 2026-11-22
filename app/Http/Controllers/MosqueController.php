@@ -16,7 +16,8 @@ class MosqueController extends Controller
 
         $now = Carbon::now('Asia/Bishkek');
         $currentTime = $now->format('H:i');
+        $prayerStatus = $mosque->prayerTimes?->getStatus($now);
 
-        return view('mosque-detail', compact('mosque', 'now', 'currentTime'));
+        return view('mosque-detail', compact('mosque', 'now', 'currentTime', 'prayerStatus'));
     }
 }

@@ -42,9 +42,23 @@ class HomeController extends Controller
 
         $mosques = $query->orderBy('district_id')->orderBy('id')->get();
 
-        // Calculate next prayer globally for Osh (reference: Sulaymon-Too or first available mosque)
+        // Calculate prayer status globally for Osh (reference: Sulaymon-Too or first available mosque)
         $referenceMosque = $mosques->firstWhere('slug', 'sulaymon-too-markaziy-jome-masjidi') ?? $mosques->first();
-        $nextPrayerInfo = $this->calculateNextPrayer($referenceMosque?->prayerTimes, $now);
+        $prayerStatus = $referenceMosque?->prayerTimes?->getStatus($now) ?? [
+            'current_name' => 'Xufton namozi vaqti',
+            'current_key' => 'isha',
+            'next_name' => 'Bomdod jamoati',
+            'next_key' => 'fajr',
+            'next_time' => '06:00',
+            'target_timestamp' => $now->copy()->addHours(2)->timestamp,
+            'diff_hours' => 2,
+            'diff_minutes' => 0,
+            'diff_seconds' => 0,
+            'diff_text' => '2 soat qoldi',
+            'diff_short' => '2 soat',
+            'is_tomorrow' => false,
+        ];
+        $nextPrayerInfo = $prayerStatus;
 
         return view('home', compact(
             'districts',
@@ -53,7 +67,8 @@ class HomeController extends Controller
             'search',
             'now',
             'currentTime',
-            'nextPrayerInfo'
+            'nextPrayerInfo',
+            'prayerStatus'
         ));
     }
 
@@ -70,7 +85,7 @@ class HomeController extends Controller
             ->whereNotNull('longitude')
             ->get()
             ->map(function ($mosque) use ($now) {
-                $next = $this->calculateNextPrayer($mosque->prayerTimes, $now);
+                $status = $mosque->prayerTimes?->getStatus($now);
                 return [
                     'id' => $mosque->id,
                     'name' => $mosque->name,
@@ -87,7 +102,13 @@ class HomeController extends Controller
                         'parking' => $mosque->has_parking,
                     ],
                     'prayer_times' => $mosque->prayerTimes,
-                    'next_prayer' => $next,
+                    'prayer_status' => $status,
+                    'next_prayer' => [
+                        'name' => $status['next_name'] ?? 'Bomdod',
+                        'time' => $status['next_time'] ?? '06:00',
+                        'target_timestamp' => $status['target_timestamp'] ?? 0,
+                        'is_tomorrow' => $status['is_tomorrow'] ?? false,
+                    ],
                     'updated_at' => $mosque->prayerTimes?->updated_at?->diffForHumans() ?? 'Recently',
                 ];
             });
