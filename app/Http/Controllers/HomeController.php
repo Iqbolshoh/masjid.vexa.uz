@@ -16,11 +16,25 @@ class HomeController extends Controller
     {
         $now = Carbon::now('Asia/Bishkek');
         $currentTime = $now->format('H:i');
+
+        $monthsUz = [
+            1 => 'yanvar', 2 => 'fevral', 3 => 'mart', 4 => 'aprel',
+            5 => 'may', 6 => 'iyun', 7 => 'iyul', 8 => 'avgust',
+            9 => 'sentabr', 10 => 'oktabr', 11 => 'noyabr', 12 => 'dekabr'
+        ];
+        $daysUz = [
+            0 => 'Yakshanba', 1 => 'Dushanba', 2 => 'Seshanba',
+            3 => 'Chorshanba', 4 => 'Payshanba', 5 => 'Juma', 6 => 'Shanba'
+        ];
+        $formattedDate = $now->day . '-' . $monthsUz[$now->month] . ', ' . $now->year . '-yil (' . $daysUz[$now->dayOfWeek] . ')';
         
         $selectedDistrict = $request->query('district');
         $search = $request->query('search');
 
-        $districts = District::withCount('mosques')->orderBy('sort_order')->get();
+        $districts = District::withCount(['mosques' => fn($q) => $q->where('is_verified', true)])
+            ->having('mosques_count', '>', 0)
+            ->orderBy('sort_order')
+            ->get();
 
         $query = Mosque::with(['district', 'prayerTimes'])
             ->where('is_verified', true);
@@ -67,6 +81,7 @@ class HomeController extends Controller
             'search',
             'now',
             'currentTime',
+            'formattedDate',
             'nextPrayerInfo',
             'prayerStatus'
         ));

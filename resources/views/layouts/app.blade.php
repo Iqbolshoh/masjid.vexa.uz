@@ -23,23 +23,23 @@
 <body class="bg-[#f8fafc] text-slate-800 antialiased min-h-screen flex flex-col selection:bg-emerald-600 selection:text-white">
 
     <!-- Top Announcement Bar / Islamic Banner -->
-    <div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 text-emerald-200 text-xs py-2 px-4 border-b border-emerald-800/40">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+    <div class="bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 text-emerald-200 text-xs py-2.5 px-4 sm:px-6 border-b border-emerald-800/40">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-2">
                 <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                <span class="font-medium text-emerald-100">Qirg'iziston, O'sh viloyati va shahar jome masjidlari</span>
+                <span class="font-semibold text-emerald-100">Qirg'iziston, O'sh viloyati va shahar jome masjidlari</span>
                 <span class="hidden md:inline text-emerald-400/60">•</span>
                 <span class="hidden md:inline text-emerald-300">Har bir masjid o'z jamoat (iqomat) vaqtini mustaqil belgilaydi</span>
             </div>
             <div class="flex items-center gap-4 text-emerald-300/90 font-medium">
-                <div id="liveClock" class="flex items-center gap-1.5 bg-emerald-800/50 px-2.5 py-0.5 rounded-full border border-emerald-700/50">
+                <div id="liveClock" class="flex items-center gap-2 bg-emerald-800/60 px-3 py-1 rounded-full border border-emerald-700/60 shadow-inner">
                     <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <span id="currentTimeDisplay">--:--:--</span>
-                    <span class="text-[10px] text-amber-300/80 uppercase font-semibold">O'sh (UTC+6)</span>
+                    <span id="currentTimeDisplay" class="font-mono font-bold text-white tracking-wide">--:--:--</span>
+                    <span class="text-[10px] text-amber-300 uppercase font-bold tracking-wider">O'sh (UTC+6)</span>
                 </div>
                 <div class="hidden sm:flex items-center gap-1.5 text-emerald-200 text-xs font-semibold">
                     <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    <span>5 vaqt jamoat namozi vaqtlari</span>
+                    <span>5 vaqt jamoat namozi</span>
                 </div>
             </div>
         </div>
@@ -160,15 +160,15 @@
                 <!-- Col 3: Contacts & Regions -->
                 <div>
                     <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2.5">Qamrab olingan hududlar</h3>
-                    <div class="flex flex-wrap gap-1.5 text-xs text-slate-400">
-                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">O'sh shahri</span>
-                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">Qorasuv</span>
-                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">Novqat</span>
-                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">O'zgan</span>
-                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">Aravon</span>
-                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">Oloy</span>
-                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">Qoraqulja</span>
-                        <span class="bg-slate-800 px-2 py-0.5 rounded-lg">Chon-Oloy</span>
+                    <div class="flex flex-wrap gap-2 text-xs text-slate-300">
+                        <span class="bg-slate-800/90 border border-slate-700 px-2.5 py-1 rounded-xl">O'sh shahri</span>
+                        <span class="bg-slate-800/90 border border-slate-700 px-2.5 py-1 rounded-xl">Qorasuv</span>
+                        <span class="bg-slate-800/90 border border-slate-700 px-2.5 py-1 rounded-xl">Novqat</span>
+                        <span class="bg-slate-800/90 border border-slate-700 px-2.5 py-1 rounded-xl">O'zgan</span>
+                        <span class="bg-slate-800/90 border border-slate-700 px-2.5 py-1 rounded-xl">Aravon</span>
+                        <span class="bg-slate-800/90 border border-slate-700 px-2.5 py-1 rounded-xl">Oloy</span>
+                        <span class="bg-slate-800/90 border border-slate-700 px-2.5 py-1 rounded-xl">Qoraqulja</span>
+                        <span class="bg-slate-800/90 border border-slate-700 px-2.5 py-1 rounded-xl">Chon-Oloy</span>
                     </div>
                 </div>
 

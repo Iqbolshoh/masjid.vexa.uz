@@ -46,11 +46,11 @@
             </div>
 
             <!-- Live sentence describing remaining time -->
-            <p class="text-xs sm:text-sm font-semibold text-emerald-200 mb-4">
-                <span class="text-amber-300" x-text="countdownSentence">
+            <div class="my-3">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-amber-400/15 border border-amber-400/30 text-amber-200 text-xs sm:text-sm font-semibold shadow-inner" x-text="countdownSentence">
                     {{ $nextPrayerInfo['next_name'] }}ga {{ $nextPrayerInfo['diff_text'] }}
                 </span>
-            </p>
+            </div>
 
             <!-- Segmented countdown timer boxes -->
             <div class="grid grid-cols-3 gap-3 sm:gap-6 max-w-sm mx-auto mb-4">
@@ -68,9 +68,10 @@
                 </div>
             </div>
 
-            <p class="text-xs text-emerald-200/80">
-                Bugungi sana: <strong class="text-white">{{ $now->translatedFormat('d-F, Y-yil (l)') }}</strong>
-            </p>
+            <div class="mt-4 pt-3.5 border-t border-emerald-800/60 flex items-center justify-center gap-2 text-xs sm:text-sm text-emerald-200/90">
+                <svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span>Bugungi sana: <strong class="text-white font-bold">{{ $formattedDate }}</strong></span>
+            </div>
         </div>
 
         <!-- Quick Action Buttons -->
@@ -207,13 +208,13 @@
             </a>
         </div>
     @else
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="mosquesList">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto" id="mosquesList">
             @foreach($mosques as $mosque)
                 @php
                     $p = $mosque->prayerTimes;
                     $status = $p?->getStatus($now);
                 @endphp
-                <div class="mosque-card bg-white rounded-3xl p-6 shadow-sm hover:shadow-xl border-t-4 border-t-emerald-700 border-x border-b border-slate-200/90 transition-all flex flex-col justify-between group hover:-translate-y-1 relative"
+                <div class="mosque-card bg-white rounded-3xl p-6 sm:p-7 shadow-sm hover:shadow-xl border-t-4 border-t-emerald-700 border-x border-b border-slate-200/90 transition-all flex flex-col justify-between group hover:-translate-y-1 relative"
                      data-id="{{ $mosque->id }}"
                      data-lat="{{ $mosque->latitude }}"
                      data-lng="{{ $mosque->longitude }}"
@@ -221,8 +222,8 @@
                      x-init="start()">
                     <div>
                         <!-- Header with District & Verification -->
-                        <div class="flex items-start justify-between gap-3 mb-2.5">
-                            <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-100">
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <span class="inline-block px-3 py-1 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-100">
                                 {{ $mosque->district->name_uz }}
                             </span>
 
@@ -233,157 +234,192 @@
                         </div>
 
                         <!-- Mosque Title & Address -->
-                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-emerald-700 transition-colors mb-1 leading-snug">
+                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors mb-1.5 leading-snug">
                             <a href="{{ route('mosque.show', $mosque->slug) }}">
                                 {{ $mosque->name }}
                             </a>
                         </h3>
-                        <p class="text-xs text-slate-500 mb-3 flex items-center gap-1.5">
+                        <p class="text-xs sm:text-sm text-slate-500 mb-4 flex items-center gap-2">
                             <svg class="w-4 h-4 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                             <span class="truncate">{{ $mosque->address }}</span>
                         </p>
 
                         <!-- Live Mosque Prayer Status Strip -->
                         @if($status)
-                            <div class="mb-3.5 p-2 rounded-xl bg-gradient-to-r from-emerald-50/90 via-slate-50 to-amber-50/70 border border-emerald-100 flex items-center justify-between gap-2 text-xs shadow-2xs">
-                                <div class="flex items-center gap-1.5 min-w-0 font-semibold text-emerald-950 truncate">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
-                                    <span class="text-slate-500 text-[11px] font-normal flex-shrink-0">Hozir:</span>
-                                    <span class="truncate text-[11px] font-bold text-emerald-900" x-text="currentName">{{ $status['current_name'] }}</span>
+                            <div class="mb-4 p-3 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50/50 to-amber-50 border border-emerald-200/80 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 shadow-2xs">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse flex-shrink-0"></span>
+                                    <span class="text-xs text-slate-500 font-medium flex-shrink-0">Hozir:</span>
+                                    <span class="text-xs sm:text-sm font-bold text-emerald-950 truncate" x-text="currentName">{{ $status['current_name'] }}</span>
                                 </div>
-                                <div class="flex items-center gap-1 font-bold text-amber-900 bg-amber-100/90 px-2 py-0.5 rounded-lg flex-shrink-0 text-[10px] sm:text-[11px] border border-amber-200/60 shadow-xs">
-                                    <svg class="w-3 h-3 text-amber-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                    <span class="font-mono" x-text="countdownText">{{ $status['next_name'] }}: {{ $status['diff_short'] }}</span>
+                                <div class="flex items-center gap-1.5 font-bold text-amber-950 bg-amber-400/25 border border-amber-300 px-3 py-1 rounded-xl flex-shrink-0 text-xs shadow-xs">
+                                    <svg class="w-3.5 h-3.5 text-amber-700 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <span class="font-mono text-xs sm:text-sm" x-text="countdownText">{{ $status['next_name'] }}: {{ $status['diff_short'] }}</span>
                                 </div>
                             </div>
                         @endif
 
                         <!-- Announcement if any -->
                         @if($p && $p->announcement)
-                            <div class="mb-4 p-3 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-amber-950 text-xs flex items-start gap-2">
+                            <div class="mb-4 p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-amber-950 text-xs flex items-start gap-2.5">
                                 <svg class="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
-                                <span>{{ Str::limit($p->announcement, 90) }}</span>
+                                <span class="leading-relaxed">{{ Str::limit($p->announcement, 110) }}</span>
                             </div>
                         @endif
 
                         <!-- Prayer Times Grid -->
-                        <div class="bg-slate-50 rounded-2xl p-3 border border-slate-100 mb-4">
-                            <div class="flex items-center justify-between text-[11px] font-bold text-slate-400 uppercase tracking-wider pb-2 border-b border-slate-200/60 mb-2">
-                                <span>Namoz</span>
-                                <span>Azon</span>
-                                <span class="text-emerald-800 font-extrabold">Jamoat</span>
+                        <div class="bg-slate-50/90 rounded-2xl p-3.5 sm:p-4 border border-slate-200 mb-5">
+                            <div class="grid grid-cols-12 text-xs font-bold text-slate-400 uppercase tracking-wider pb-2.5 mb-2.5 border-b border-slate-200">
+                                <span class="col-span-5 pl-1">Namoz</span>
+                                <span class="col-span-3 text-center">Azon</span>
+                                <span class="col-span-4 text-right pr-1 text-emerald-800 font-extrabold">Jamoat</span>
                             </div>
 
-                            <div class="space-y-1 text-xs">
-                                <div class="flex items-center justify-between py-1 px-1.5 rounded-lg transition-colors {{ ($status['current_key'] ?? '') === 'fajr' ? 'bg-emerald-100/80 font-bold border-l-2 border-emerald-600 pl-2' : (($status['next_key'] ?? '') === 'fajr' ? 'bg-amber-100/60 font-semibold border-l-2 border-amber-500 pl-2' : 'hover:bg-white') }}">
-                                    <span class="font-medium text-slate-700 flex items-center gap-1.5">
-                                        Bomdod
+                            <div class="space-y-1.5 text-xs sm:text-sm">
+                                <!-- Bomdod -->
+                                <div class="grid grid-cols-12 items-center py-2 px-2.5 rounded-xl transition-all {{ ($status['current_key'] ?? '') === 'fajr' ? 'bg-emerald-100/90 font-bold border-l-4 border-l-emerald-600 shadow-xs' : (($status['next_key'] ?? '') === 'fajr' ? 'bg-amber-100/80 font-semibold border-l-4 border-l-amber-500 shadow-xs' : 'hover:bg-white') }}">
+                                    <div class="col-span-5 flex items-center gap-1.5 min-w-0">
+                                        <span class="font-bold text-slate-800 truncate">Bomdod</span>
                                         @if(($status['current_key'] ?? '') === 'fajr')
-                                            <span class="text-[9px] uppercase px-1 py-0.2 rounded bg-emerald-200 text-emerald-900 font-extrabold">Hozir</span>
+                                            <span class="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-emerald-700 text-white font-extrabold flex-shrink-0">Hozir</span>
                                         @elseif(($status['next_key'] ?? '') === 'fajr')
-                                            <span class="text-[9px] uppercase px-1 py-0.2 rounded bg-amber-200 text-amber-900 font-extrabold">Keyingi</span>
+                                            <span class="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-amber-600 text-white font-extrabold flex-shrink-0">Keyingi</span>
                                         @endif
-                                    </span>
-                                    <span class="text-slate-400">{{ $p?->fajr_adhan ?? '--:--' }}</span>
-                                    <span class="font-bold text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-md">{{ $p?->fajr_iqama ?? '--:--' }}</span>
+                                    </div>
+                                    <div class="col-span-3 text-center font-mono text-slate-500 text-xs sm:text-sm">
+                                        {{ $p?->fajr_adhan ?? '--:--' }}
+                                    </div>
+                                    <div class="col-span-4 text-right pr-1 font-mono font-black text-emerald-800 text-sm sm:text-base">
+                                        <span class="bg-emerald-100 px-2 py-0.5 rounded-lg inline-block">{{ $p?->fajr_iqama ?? '--:--' }}</span>
+                                    </div>
                                 </div>
-                                <div class="flex items-center justify-between py-1 px-1.5 rounded-lg transition-colors {{ ($status['current_key'] ?? '') === 'sunrise' ? 'bg-amber-100/80 font-bold border-l-2 border-amber-600 pl-2' : (($status['next_key'] ?? '') === 'sunrise' ? 'bg-amber-100/60 font-semibold border-l-2 border-amber-500 pl-2' : 'hover:bg-white') }} text-amber-700/80">
-                                    <span class="font-medium flex items-center gap-1.5">
-                                        Quyosh
+
+                                <!-- Quyosh -->
+                                <div class="grid grid-cols-12 items-center py-2 px-2.5 rounded-xl transition-all {{ ($status['current_key'] ?? '') === 'sunrise' ? 'bg-amber-100/90 font-bold border-l-4 border-l-amber-600 shadow-xs' : (($status['next_key'] ?? '') === 'sunrise' ? 'bg-amber-100/80 font-semibold border-l-4 border-l-amber-500 shadow-xs' : 'hover:bg-white') }} text-amber-800">
+                                    <div class="col-span-5 flex items-center gap-1.5 min-w-0">
+                                        <span class="font-bold truncate">Quyosh</span>
                                         @if(($status['current_key'] ?? '') === 'sunrise')
-                                            <span class="text-[9px] uppercase px-1 py-0.2 rounded bg-amber-200 text-amber-900 font-extrabold">Hozir</span>
+                                            <span class="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-amber-600 text-white font-extrabold flex-shrink-0">Hozir</span>
                                         @elseif(($status['next_key'] ?? '') === 'sunrise')
-                                            <span class="text-[9px] uppercase px-1 py-0.2 rounded bg-amber-200 text-amber-900 font-extrabold">Keyingi</span>
+                                            <span class="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-amber-600 text-white font-extrabold flex-shrink-0">Keyingi</span>
                                         @endif
-                                    </span>
-                                    <span>--:--</span>
-                                    <span class="font-semibold px-2 py-0.5">{{ $p?->sunrise ?? '--:--' }}</span>
+                                    </div>
+                                    <div class="col-span-3 text-center font-mono text-slate-400 text-xs sm:text-sm">
+                                        --:--
+                                    </div>
+                                    <div class="col-span-4 text-right pr-1 font-mono font-bold text-amber-800 text-sm sm:text-base">
+                                        <span class="bg-amber-100 px-2 py-0.5 rounded-lg inline-block">{{ $p?->sunrise ?? '--:--' }}</span>
+                                    </div>
                                 </div>
-                                <div class="flex items-center justify-between py-1 px-1.5 rounded-lg transition-colors {{ ($status['current_key'] ?? '') === 'dhuhr' ? 'bg-emerald-100/80 font-bold border-l-2 border-emerald-600 pl-2' : (($status['next_key'] ?? '') === 'dhuhr' ? 'bg-amber-100/60 font-semibold border-l-2 border-amber-500 pl-2' : 'hover:bg-white') }}">
-                                    <span class="font-medium text-slate-700 flex items-center gap-1.5">
-                                        Peshin
+
+                                <!-- Peshin -->
+                                <div class="grid grid-cols-12 items-center py-2 px-2.5 rounded-xl transition-all {{ ($status['current_key'] ?? '') === 'dhuhr' ? 'bg-emerald-100/90 font-bold border-l-4 border-l-emerald-600 shadow-xs' : (($status['next_key'] ?? '') === 'dhuhr' ? 'bg-amber-100/80 font-semibold border-l-4 border-l-amber-500 shadow-xs' : 'hover:bg-white') }}">
+                                    <div class="col-span-5 flex items-center gap-1.5 min-w-0">
+                                        <span class="font-bold text-slate-800 truncate">Peshin</span>
                                         @if(($status['current_key'] ?? '') === 'dhuhr')
-                                            <span class="text-[9px] uppercase px-1 py-0.2 rounded bg-emerald-200 text-emerald-900 font-extrabold">Hozir</span>
+                                            <span class="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-emerald-700 text-white font-extrabold flex-shrink-0">Hozir</span>
                                         @elseif(($status['next_key'] ?? '') === 'dhuhr')
-                                            <span class="text-[9px] uppercase px-1 py-0.2 rounded bg-amber-200 text-amber-900 font-extrabold">Keyingi</span>
+                                            <span class="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-amber-600 text-white font-extrabold flex-shrink-0">Keyingi</span>
                                         @endif
-                                    </span>
-                                    <span class="text-slate-400">{{ $p?->dhuhr_adhan ?? '--:--' }}</span>
-                                    <span class="font-bold text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-md">{{ $p?->dhuhr_iqama ?? '--:--' }}</span>
+                                    </div>
+                                    <div class="col-span-3 text-center font-mono text-slate-500 text-xs sm:text-sm">
+                                        {{ $p?->dhuhr_adhan ?? '--:--' }}
+                                    </div>
+                                    <div class="col-span-4 text-right pr-1 font-mono font-black text-emerald-800 text-sm sm:text-base">
+                                        <span class="bg-emerald-100 px-2 py-0.5 rounded-lg inline-block">{{ $p?->dhuhr_iqama ?? '--:--' }}</span>
+                                    </div>
                                 </div>
-                                <div class="flex items-center justify-between py-1 px-1.5 rounded-lg transition-colors {{ ($status['current_key'] ?? '') === 'asr' ? 'bg-emerald-100/80 font-bold border-l-2 border-emerald-600 pl-2' : (($status['next_key'] ?? '') === 'asr' ? 'bg-amber-100/60 font-semibold border-l-2 border-amber-500 pl-2' : 'hover:bg-white') }}">
-                                    <span class="font-medium text-slate-700 flex items-center gap-1.5">
-                                        Asr
+
+                                <!-- Asr -->
+                                <div class="grid grid-cols-12 items-center py-2 px-2.5 rounded-xl transition-all {{ ($status['current_key'] ?? '') === 'asr' ? 'bg-emerald-100/90 font-bold border-l-4 border-l-emerald-600 shadow-xs' : (($status['next_key'] ?? '') === 'asr' ? 'bg-amber-100/80 font-semibold border-l-4 border-l-amber-500 shadow-xs' : 'hover:bg-white') }}">
+                                    <div class="col-span-5 flex items-center gap-1.5 min-w-0">
+                                        <span class="font-bold text-slate-800 truncate">Asr</span>
                                         @if(($status['current_key'] ?? '') === 'asr')
-                                            <span class="text-[9px] uppercase px-1 py-0.2 rounded bg-emerald-200 text-emerald-900 font-extrabold">Hozir</span>
+                                            <span class="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-emerald-700 text-white font-extrabold flex-shrink-0">Hozir</span>
                                         @elseif(($status['next_key'] ?? '') === 'asr')
-                                            <span class="text-[9px] uppercase px-1 py-0.2 rounded bg-amber-200 text-amber-900 font-extrabold">Keyingi</span>
+                                            <span class="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-amber-600 text-white font-extrabold flex-shrink-0">Keyingi</span>
                                         @endif
-                                    </span>
-                                    <span class="text-slate-400">{{ $p?->asr_adhan ?? '--:--' }}</span>
-                                    <span class="font-bold text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-md">{{ $p?->asr_iqama ?? '--:--' }}</span>
+                                    </div>
+                                    <div class="col-span-3 text-center font-mono text-slate-500 text-xs sm:text-sm">
+                                        {{ $p?->asr_adhan ?? '--:--' }}
+                                    </div>
+                                    <div class="col-span-4 text-right pr-1 font-mono font-black text-emerald-800 text-sm sm:text-base">
+                                        <span class="bg-emerald-100 px-2 py-0.5 rounded-lg inline-block">{{ $p?->asr_iqama ?? '--:--' }}</span>
+                                    </div>
                                 </div>
-                                <div class="flex items-center justify-between py-1 px-1.5 rounded-lg transition-colors {{ ($status['current_key'] ?? '') === 'maghrib' ? 'bg-emerald-100/80 font-bold border-l-2 border-emerald-600 pl-2' : (($status['next_key'] ?? '') === 'maghrib' ? 'bg-amber-100/60 font-semibold border-l-2 border-amber-500 pl-2' : 'hover:bg-white') }}">
-                                    <span class="font-medium text-slate-700 flex items-center gap-1.5">
-                                        Shom
+
+                                <!-- Shom -->
+                                <div class="grid grid-cols-12 items-center py-2 px-2.5 rounded-xl transition-all {{ ($status['current_key'] ?? '') === 'maghrib' ? 'bg-emerald-100/90 font-bold border-l-4 border-l-emerald-600 shadow-xs' : (($status['next_key'] ?? '') === 'maghrib' ? 'bg-amber-100/80 font-semibold border-l-4 border-l-amber-500 shadow-xs' : 'hover:bg-white') }}">
+                                    <div class="col-span-5 flex items-center gap-1.5 min-w-0">
+                                        <span class="font-bold text-slate-800 truncate">Shom</span>
                                         @if(($status['current_key'] ?? '') === 'maghrib')
-                                            <span class="text-[9px] uppercase px-1 py-0.2 rounded bg-emerald-200 text-emerald-900 font-extrabold">Hozir</span>
+                                            <span class="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-emerald-700 text-white font-extrabold flex-shrink-0">Hozir</span>
                                         @elseif(($status['next_key'] ?? '') === 'maghrib')
-                                            <span class="text-[9px] uppercase px-1 py-0.2 rounded bg-amber-200 text-amber-900 font-extrabold">Keyingi</span>
+                                            <span class="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-amber-600 text-white font-extrabold flex-shrink-0">Keyingi</span>
                                         @endif
-                                    </span>
-                                    <span class="text-slate-400">{{ $p?->maghrib_adhan ?? '--:--' }}</span>
-                                    <span class="font-bold text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-md">{{ $p?->maghrib_iqama ?? '--:--' }}</span>
+                                    </div>
+                                    <div class="col-span-3 text-center font-mono text-slate-500 text-xs sm:text-sm">
+                                        {{ $p?->maghrib_adhan ?? '--:--' }}
+                                    </div>
+                                    <div class="col-span-4 text-right pr-1 font-mono font-black text-emerald-800 text-sm sm:text-base">
+                                        <span class="bg-emerald-100 px-2 py-0.5 rounded-lg inline-block">{{ $p?->maghrib_iqama ?? '--:--' }}</span>
+                                    </div>
                                 </div>
-                                <div class="flex items-center justify-between py-1 px-1.5 rounded-lg transition-colors {{ ($status['current_key'] ?? '') === 'isha' ? 'bg-emerald-100/80 font-bold border-l-2 border-emerald-600 pl-2' : (($status['next_key'] ?? '') === 'isha' ? 'bg-amber-100/60 font-semibold border-l-2 border-amber-500 pl-2' : 'hover:bg-white') }}">
-                                    <span class="font-medium text-slate-700 flex items-center gap-1.5">
-                                        Xufton
+
+                                <!-- Xufton -->
+                                <div class="grid grid-cols-12 items-center py-2 px-2.5 rounded-xl transition-all {{ ($status['current_key'] ?? '') === 'isha' ? 'bg-emerald-100/90 font-bold border-l-4 border-l-emerald-600 shadow-xs' : (($status['next_key'] ?? '') === 'isha' ? 'bg-amber-100/80 font-semibold border-l-4 border-l-amber-500 shadow-xs' : 'hover:bg-white') }}">
+                                    <div class="col-span-5 flex items-center gap-1.5 min-w-0">
+                                        <span class="font-bold text-slate-800 truncate">Xufton</span>
                                         @if(($status['current_key'] ?? '') === 'isha')
-                                            <span class="text-[9px] uppercase px-1 py-0.2 rounded bg-emerald-200 text-emerald-900 font-extrabold">Hozir</span>
+                                            <span class="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-emerald-700 text-white font-extrabold flex-shrink-0">Hozir</span>
                                         @elseif(($status['next_key'] ?? '') === 'isha')
-                                            <span class="text-[9px] uppercase px-1 py-0.2 rounded bg-amber-200 text-amber-900 font-extrabold">Keyingi</span>
+                                            <span class="text-[9px] uppercase px-1.5 py-0.5 rounded-md bg-amber-600 text-white font-extrabold flex-shrink-0">Keyingi</span>
                                         @endif
-                                    </span>
-                                    <span class="text-slate-400">{{ $p?->isha_adhan ?? '--:--' }}</span>
-                                    <span class="font-bold text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-md">{{ $p?->isha_iqama ?? '--:--' }}</span>
+                                    </div>
+                                    <div class="col-span-3 text-center font-mono text-slate-500 text-xs sm:text-sm">
+                                        {{ $p?->isha_adhan ?? '--:--' }}
+                                    </div>
+                                    <div class="col-span-4 text-right pr-1 font-mono font-black text-emerald-800 text-sm sm:text-base">
+                                        <span class="bg-emerald-100 px-2 py-0.5 rounded-lg inline-block">{{ $p?->isha_iqama ?? '--:--' }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Amenities with SVG icons -->
-                        <div class="flex items-center gap-3 text-[11px] text-slate-500 mb-4">
+                        <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-5">
                             @if($mosque->has_ablution)
-                                <span class="flex items-center gap-1.5 text-teal-700 bg-teal-50/80 px-2 py-0.5 rounded-md border border-teal-100" title="Tahoratxona mavjud">
+                                <span class="inline-flex items-center gap-1.5 text-teal-800 bg-teal-50 px-2.5 py-1 rounded-lg border border-teal-200/70" title="Tahoratxona mavjud">
                                     <svg class="w-3.5 h-3.5 text-teal-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
                                     <span>Tahoratxona</span>
                                 </span>
                             @endif
                             @if($mosque->has_women_area)
-                                <span class="flex items-center gap-1.5 text-purple-700 bg-purple-50/80 px-2 py-0.5 rounded-md border border-purple-100" title="Ayollar namozxonasi mavjud">
+                                <span class="inline-flex items-center gap-1.5 text-purple-800 bg-purple-50 px-2.5 py-1 rounded-lg border border-purple-200/70" title="Ayollar namozxonasi mavjud">
                                     <svg class="w-3.5 h-3.5 text-purple-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
                                     <span>Ayollar xonasi</span>
                                 </span>
                             @endif
                             @if($mosque->has_parking)
-                                <span class="flex items-center gap-1.5 text-blue-700 bg-blue-50/80 px-2 py-0.5 rounded-md border border-blue-100" title="Avtoturargoh mavjud">
+                                <span class="inline-flex items-center gap-1.5 text-blue-800 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200/70" title="Avtoturargoh mavjud">
                                     <svg class="w-3.5 h-3.5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7h4a3 3 0 010 6H9"/></svg>
-                                    <span>Parking</span>
+                                    <span>Avtoturargoh</span>
                                 </span>
                             @endif
                         </div>
                     </div>
 
                     <!-- Footer actions -->
-                    <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-                        <a href="{{ route('mosque.show', $mosque->slug) }}" class="flex-1 text-center py-2.5 px-3 rounded-xl text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 transition-colors">
-                            Batafsil ko'rish
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                        <a href="{{ route('mosque.show', $mosque->slug) }}" class="flex-1 text-center py-3 px-4 rounded-xl text-xs sm:text-sm font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 transition-colors">
+                            Batafsil ma'lumot
                         </a>
                         
                         @if($mosque->latitude && $mosque->longitude)
                             <a href="https://yandex.com/maps/?rtext=~{{ $mosque->latitude }},{{ $mosque->longitude }}&rtt=auto" 
                                target="_blank" 
                                title="Yandex Navigator orqali yo'nalish olish"
-                               class="p-2.5 rounded-xl text-slate-600 hover:text-amber-600 hover:bg-amber-50 border border-slate-200 transition-colors flex items-center justify-center">
+                               class="p-3 rounded-xl text-slate-600 hover:text-amber-700 hover:bg-amber-50 border border-slate-200 transition-colors flex items-center justify-center">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                             </a>
                         @endif

@@ -94,11 +94,11 @@
                                 Navbatdagi: <span class="text-amber-300" x-text="prayerName">{{ $prayerStatus['next_name'] }}</span>
                                 <span class="font-mono text-amber-200 ml-1" x-text="prayerTime">({{ $prayerStatus['next_time'] }})</span>
                             </h3>
-                            <p class="text-xs sm:text-sm text-emerald-200 font-semibold mt-1">
-                                <span class="text-amber-300" x-text="countdownSentence">
+                            <div class="mt-2.5">
+                                <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-400/15 border border-amber-400/30 text-amber-200 text-xs sm:text-sm font-semibold shadow-inner" x-text="countdownSentence">
                                     {{ $prayerStatus['next_name'] }}ga {{ $prayerStatus['diff_text'] }}
                                 </span>
-                            </p>
+                            </div>
                         </div>
 
                         <!-- Real-time ticking segments -->
